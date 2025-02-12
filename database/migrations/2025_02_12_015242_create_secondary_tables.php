@@ -23,45 +23,40 @@ return new class extends Migration
 
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->decimal('set_price', 8, 2);
             $table->longtext('commission_details');
             $table->string('status');
             $table->timestamps();
             $table->dateTime('deadline');
             $table->dateTime('completed_at')->nullable();
-
-            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('actions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('commission_id');
+            $table->foreignIdFor(\App\Models\Commission::class)->constrained();
             $table->string('name');
             $table->longtext('action_details');
             $table->string('status');
             $table->timestamps();
             $table->dateTime('deadline');
             $table->dateTime('completed_at')->nullable();
-
-            $table->foreign('commission_id')->references('id')->on('commissions');
         });
 
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sender_id');
-            $table->unsignedBigInteger('receiver_id');
+            $table->foreignIdFor(\App\Models\User::class, 'sender_id')->constrained();
+            $table->foreignIdFor(\App\Models\User::class, 'receiver_id')->constrained();
             $table->longtext('message');
             $table->timestamps();
- 
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->foreign('receiver_id')->references('id')->on('users');
         });
 
         Schema::create('attachment_files', function (Blueprint $table) {
             $table->id();
             $table->string('file_name');
+            $table->foreignIdFor(\App\Models\User::class, 'uploaded_by')->constrained();
             $table->string('file_path');
+            $table->string('file_size');
             $table->string('file_type');
             $table->timestamps();
         });

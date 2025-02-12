@@ -12,47 +12,46 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employee_action', function (Blueprint $table) {
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('action_id');
+            $table->foreignIdFor(\App\Models\Employee::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\Action::class)->constrained()->onDelete('cascade');
             $table->timestamp('created_at');
 
             $table->primary(['employee_id', 'action_id']);
-
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
-            $table->foreign('action_id')->references('id')->on('actions')->onDelete('cascade');
         });
 
         Schema::create('order_attachment', function (Blueprint $table) {
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('attachment_id');
+            $table->foreignIdFor(\App\Models\Order::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
             $table->timestamp('created_at');
 
-            $table->primary(['order_id', 'attachment_id']);
-
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('attachment_id')->references('id')->on('attachment_files')->onDelete('cascade');
+            $table->primary(['order_id', 'attachment_id']);;
         });
 
         Schema::create('commission_attachment', function (Blueprint $table) {
-            $table->unsignedBigInteger('commission_id');
+            $table->foreignIdFor(\App\Models\Commission::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('attachment_id');
             $table->timestamp('created_at');
 
             $table->primary(['commission_id', 'attachment_id']);
-
-            $table->foreign('commission_id')->references('id')->on('commissions')->onDelete('cascade');
-            $table->foreign('attachment_id')->references('id')->on('attachment_files')->onDelete('cascade');
         });
 
         Schema::create('message_attachment', function (Blueprint $table) {
-            $table->unsignedBigInteger('message_id');
+            $table->foreignIdFor(\App\Models\Message::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('attachment_id');
             $table->timestamp('created_at');
 
             $table->primary(['message_id', 'attachment_id']);
+        });
 
-            $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
-            $table->foreign('attachment_id')->references('id')->on('attachment_files')->onDelete('cascade');
+        Schema::create('action_attachment', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\Action::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('attachment_id');
+            $table->timestamp('created_at');
+
+            $table->primary(['action_id', 'attachment_id']);
         });
     }
 
@@ -65,5 +64,6 @@ return new class extends Migration
         Schema::dropIfExists('order_attachment');
         Schema::dropIfExists('commission_attachment');
         Schema::dropIfExists('message_attachment');
+        Schema::dropIfExists('action_attachment');
     }
 };
