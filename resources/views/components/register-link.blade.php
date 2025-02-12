@@ -1,5 +1,4 @@
-@props(['active' => false])
-@props(['type'])
+@props(['active' => false, 'type' => 'a'])
 
 @if ($type == 'button')
   <button class="px-4 py-2 inline-block" {{ $attributes }}>
