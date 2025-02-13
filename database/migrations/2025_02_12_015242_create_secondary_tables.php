@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->longtext('order_details');
+            $table->text('delivery_address');
             $table->string('status');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->dateTime('deadline');
         });
 
         Schema::create('commissions', function (Blueprint $table) {
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->decimal('set_price', 8, 2);
             $table->longtext('commission_details');
+            $table->text('delivery_address');
             $table->string('status');
             $table->timestamps();
             $table->dateTime('deadline');

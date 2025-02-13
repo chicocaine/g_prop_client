@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->decimal('pricing', 8, 2);
+            $table->timestamps();
         });
 
         Schema::create('logs', function (Blueprint $table) {

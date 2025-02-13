@@ -19,7 +19,9 @@ class OrderFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'order_details' => fake()->sentence(),
-            'status' => fake()->randomElement(['pending', 'completed', 'in progress'])
+            'delivery_address' => fake()->address(),
+            'status' => fake()->randomElement(['pending', 'completed', 'in progress']),
+            'deadline' => fake()->dateTimeThisYear(),
         ];
     }
 }

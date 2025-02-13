@@ -19,6 +19,6 @@ class Employee extends Model
 
     public function actions()
     {
-        return $this->belongsToMany(Action::class, table:'employee_action');
+        return $this->belongsToMany(Action::class, 'employee_action', 'employee_id', 'action_id')->withTimestamps();
     }
 }

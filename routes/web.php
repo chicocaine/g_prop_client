@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $employees = App\Models\Employee::all();
-    dd($employees);
-   // return view('home');
+    return view('home');
 });
 
 Route::get('/about', function () {

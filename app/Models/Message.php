@@ -28,6 +28,6 @@ class Message extends Model
 
     public function attachments()
     {
-        return $this->belongsToMany(Action::class, table:'message_attachment');
+        return $this->belongsToMany(Action::class, 'message_attachment', 'attachment_id', 'message_id')->withTimestamps();
     }
 }

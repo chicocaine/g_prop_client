@@ -25,11 +25,11 @@ class Action extends Model
 
     public function attachments()
     {
-        return $this->belongsToMany(Attachment::class, 'action_attachment');
+        return $this->belongsToMany(Attachment::class, 'action_attachment', 'action_id', 'attachment_id')->withTimestamps();
     }
 
     public function employees()
     {
-        return $this->belongsToMany(User::class, table:'employee_action');
+        return $this->belongsToMany(User::class, 'employee_action', 'action_id', 'employee_id')->withTimestamps();
     }   
 }

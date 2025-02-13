@@ -13,7 +13,9 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'order_details',
-        'status'
+        'delivery_address',
+        'status',
+        'deadline',
     ];
 
     public function user()
@@ -23,7 +25,7 @@ class Order extends Model
 
     public function attachments()
     {
-        return $this->belongsToMany(Action::class, table:'order_attachment');
+        return $this->belongsToMany(Action::class, 'order_attachment', 'attachment_id', 'order_id')->withTimestamps();
     }
 
 }

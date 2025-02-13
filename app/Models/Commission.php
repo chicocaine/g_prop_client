@@ -14,6 +14,7 @@ class Commission extends Model
         'user_id',
         'set_price',
         'commission_details',
+        'delivery_address',
         'status',
         'deadline',
         'completed_at'
@@ -26,7 +27,7 @@ class Commission extends Model
 
     public function attachments()
     {
-        return $this->belongsToMany(Action::class, table:'commission_attachment');
+        return $this->belongsToMany(Action::class, 'commission_attachment', 'attachment_id', 'commission_id')->withTimestamps();
     }
 
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('employee_action', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Employee::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Action::class)->constrained()->onDelete('cascade');
-            $table->timestamp('created_at');
+            $table->timestamps();
 
             $table->primary(['employee_id', 'action_id']);
         });
@@ -22,7 +22,7 @@ return new class extends Migration
         Schema::create('order_attachment', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Order::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
-            $table->timestamp('created_at');
+            $table->timestamps();
 
             $table->primary(['order_id', 'attachment_id']);;
         });
@@ -30,8 +30,7 @@ return new class extends Migration
         Schema::create('commission_attachment', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Commission::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('attachment_id');
-            $table->timestamp('created_at');
+            $table->timestamps();
 
             $table->primary(['commission_id', 'attachment_id']);
         });
@@ -39,8 +38,7 @@ return new class extends Migration
         Schema::create('message_attachment', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Message::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('attachment_id');
-            $table->timestamp('created_at');
+            $table->timestamps();
 
             $table->primary(['message_id', 'attachment_id']);
         });
@@ -48,8 +46,7 @@ return new class extends Migration
         Schema::create('action_attachment', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Action::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('attachment_id');
-            $table->timestamp('created_at');
+            $table->timestamps();
 
             $table->primary(['action_id', 'attachment_id']);
         });

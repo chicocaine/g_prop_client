@@ -17,7 +17,7 @@ class AttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'file_name' => fake()->word(),
+            'file_name' => fake()->word() . '.' . fake()->fileExtension(),
             'uploaded_by' => \App\Models\User::factory(),
             'file_path' => fake()->word(),
             'file_size' => fake()->randomNumber(2) . 'KB',
