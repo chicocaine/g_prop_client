@@ -18,6 +18,7 @@ class CommissionFactory extends Factory
     {
         return [
             'user_id' => \App\Models\User::factory(),
+            'order_id' => \App\Models\Order::factory(),
             'set_price' => fake()->randomFloat(2, 0, 1000),
             'commission_details' => fake()->sentence(),
             'delivery_address' => fake()->address(),

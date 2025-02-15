@@ -19,4 +19,24 @@ class Attachment extends Model
         'file_size',
         'file_type'
     ];
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_attachment', 'attachment_id', 'order_id')->withTimestamps();
+    }
+
+    public function commissions()
+    {
+        return $this->belongsToMany(Commission::class, 'commission_attachment', 'attachment_id', 'commission_id')->withTimestamps();
+    }
+
+    public function message()
+    {
+        return $this->belongsToMany(Message::class, 'message_attachment', 'attachment_id', 'message_id')->withTimestamps();
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_attachment', 'attachment_id', 'action_id')->withTimestamps();
+    }
 }

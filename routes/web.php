@@ -18,11 +18,12 @@ Route::get('/services', function () {
     ]);
 });
 
-Route::get('/services/{id}', function ($id) {
-    $service = App\Models\Service::find($id);
-    return view('service', [
-        'service' => $service
-    ]);
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::get('/login', function () {
+    return view('login');
 });
 
 Route::get('/pricing', function () {
@@ -33,30 +34,24 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
 
 Route::get('/profile', function () {
     return view('profile');
 });
 
-Route::get('/messages', function () {
-    return view('messages');
+Route::get('/orders', function () {
+    return view('orders.index', [
+        'orders' => App\Models\Order::all()
+    ]);
 });
 
-Route::get('/commissions', function () {
-    return view('commissions');
+Route::get('/orders/{id}', function ($id) {
+    $order = App\Models\Order::find($id);
+    return view('orders.show', [
+        'order' => $order
+    ]);
 });
 
 Route::get('/settings', function () {
     return view('settings');
-});
-
-Route::get('/activity', function () {
-    return view('activity');
 });

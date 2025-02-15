@@ -17,10 +17,11 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'thread_id' => \App\Models\Thread::factory(),
+            'order_id' => \App\Models\Order::factory(),
             'sender_id' => \App\Models\User::factory(),
             'receiver_id' => \App\Models\User::factory(),
-            'message' => fake()->sentence()
+            'message' => fake()->sentence(),
+            'is_read' => fake()->boolean()
         ];
     }
 }

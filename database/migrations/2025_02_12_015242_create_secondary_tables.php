@@ -24,6 +24,7 @@ return new class extends Migration
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\Order::class)->constrained();
             $table->decimal('set_price', 8, 2);
             $table->longtext('commission_details');
             $table->text('delivery_address');
@@ -44,19 +45,14 @@ return new class extends Migration
             $table->dateTime('completed_at')->nullable();
         });
 
-        Schema::create('threads', function (Blueprint $table) {
-            $table->id();
-            $table->string('subject');
-            $table->boolean('is_archived')->default(false);
-            $table->timestamps();
-        });
 
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Thread::class, 'thread_id')->constrained();
+            $table->foreignIdFor(\App\Models\Order::class, 'order_id')->constrained();
             $table->foreignIdFor(\App\Models\User::class, 'sender_id')->constrained();
             $table->foreignIdFor(\App\Models\User::class, 'receiver_id')->constrained();
             $table->longtext('message');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
 

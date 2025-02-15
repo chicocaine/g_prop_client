@@ -25,7 +25,17 @@ class Order extends Model
 
     public function attachments()
     {
-        return $this->belongsToMany(Action::class, 'order_attachment', 'attachment_id', 'order_id')->withTimestamps();
+        return $this->belongsToMany(Attachment::class, 'order_attachment', 'order_id', 'attachment_id')->withTimestamps();
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function commissions()
+    {
+        return $this->hasOne(Commission::class);
     }
 
 }

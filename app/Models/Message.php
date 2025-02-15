@@ -12,14 +12,14 @@ class Message extends Model
 
     protected $fillable = [
         'message',
-        'thread_id',
+        'order_id',
         'sender_id',
         'receiver_id'
     ];
 
-    public function thread()
+    public function order()
     {
-        return $this->belongsTo(Thread::class);
+        return $this->belongsTo(Order::class);
     }
 
     public function sender()
@@ -34,6 +34,6 @@ class Message extends Model
 
     public function attachments()
     {
-        return $this->belongsToMany(Action::class, 'message_attachment', 'attachment_id', 'message_id')->withTimestamps();
+        return $this->belongsToMany(Action::class, 'message_attachment', 'message_id', 'attachment_id')->withTimestamps();
     }
 }
