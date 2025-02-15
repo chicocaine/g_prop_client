@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', [
+        'greeting' => 'Hello, World!'
+    ]);
 });
 
 Route::get('/about', function () {
@@ -11,7 +13,16 @@ Route::get('/about', function () {
 });
 
 Route::get('/services', function () {
-    return view('services');
+    return view('services', [
+        'services' => App\Models\Service::all()
+    ]);
+});
+
+Route::get('/services/{id}', function ($id) {
+    $service = App\Models\Service::find($id);
+    return view('service', [
+        'service' => $service
+    ]);
 });
 
 Route::get('/pricing', function () {

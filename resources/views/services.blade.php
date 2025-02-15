@@ -5,4 +5,17 @@
       <p class="text-center mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec nulla ac justo tincidunt fermentum</p>
     </main>
   </section>
+  <section class="px-6 py-8 flex flex-col justify-start gap-3">
+    <ul>
+      @foreach ($services as $service)
+        <li>
+          <a href="/services/{{ $service['id'] }}">
+            <div class="text-left font-semibold text-xl text-blue-950 border border-gray-200 rounded p-4 m-4 bg-gray-100">
+              <p>{{ $service['name'] }}</p>
+            </div>
+          </a>
+        </li>
+      @endforeach
+    </ul>
+  </section>
 </x-layout>

@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $services = \App\Models\Service::factory(10)->create();
         $logs = \App\Models\Log::factory(10)->create();
         $attachments = \App\Models\Attachment::factory(30)->create();
+        $threads = \App\Models\Thread::factory(5)->create();
 
         $orders = \App\Models\Order::factory(30)->create([
             'user_id' => function () use ($users) {
@@ -31,6 +32,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $messages = \App\Models\Message::factory(30)->create([
+            'thread_id' => function () use ($threads) {
+                return $threads->random()->id;
+            },
             'sender_id' => function () use ($users) {
                 return $users->random()->id;
             },

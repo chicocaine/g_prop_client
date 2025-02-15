@@ -12,9 +12,15 @@ class Message extends Model
 
     protected $fillable = [
         'message',
+        'thread_id',
         'sender_id',
         'receiver_id'
     ];
+
+    public function thread()
+    {
+        return $this->belongsTo(Thread::class);
+    }
 
     public function sender()
     {
