@@ -17,9 +17,8 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'order_id' => \App\Models\Order::factory(),
-            'sender_id' => \App\Models\User::factory(),
-            'receiver_id' => \App\Models\User::factory(),
+            'commission_id' => \App\Models\Commission::factory(),
+            'user_id' => \App\Models\User::factory(),
             'message' => fake()->sentence(),
             'is_read' => fake()->boolean()
         ];

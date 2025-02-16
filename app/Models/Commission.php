@@ -12,7 +12,6 @@ class Commission extends Model
 
     protected $fillable = [
         'user_id',
-        'order_id',
         'set_price',
         'commission_details',
         'delivery_address',
@@ -34,11 +33,6 @@ class Commission extends Model
     public function attachments()
     {
         return $this->belongsToMany(Attachment::class, 'commission_attachment', 'commission_id', 'attachment_id')->withTimestamps();
-    }
-
-    public function orders()
-    {
-        return $this->belongsTo(Order::class);
     }
 
 }

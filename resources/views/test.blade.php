@@ -31,7 +31,7 @@
   </nav>
   <section class="flex min-h-screen items-center bg-white">
     <div class="container mx-auto flex flex-row items-center">
-      <div class="w-full lg:w-3/5 px-6 lg:px-16 text-center lg:text-left w-3/5">
+      <div class="lg:w-3/5 px-6 lg:px-16 text-center lg:text-left w-3/5">
         <h1 class="text-5xl font-bold text-gray-900 leading-tight">
           Great tool to boost <br /> your startup
         </h1>

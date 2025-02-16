@@ -39,15 +39,15 @@ Route::get('/profile', function () {
     return view('profile');
 });
 
-Route::get('/orders', function () {
-    return view('orders.index', [
+Route::get('/commissions', function () {
+    return view('commissions.index', [
         'orders' => App\Models\Order::all()
     ]);
 });
 
-Route::get('/orders/{id}', function ($id) {
+Route::get('/commissions/{id}', function ($id) {
     $order = App\Models\Order::find($id);
-    return view('orders.show', [
+    return view('commissions.show', [
         'order' => $order
     ]);
 });

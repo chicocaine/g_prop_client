@@ -18,29 +18,18 @@ class DatabaseSeeder extends Seeder
         $logs = \App\Models\Log::factory(10)->create();
         $attachments = \App\Models\Attachment::factory(30)->create();
 
-        $orders = \App\Models\Order::factory(10)->create([
+
+        $commissions = \App\Models\Commission::factory(10)->create([
             'user_id' => function () use ($users) {
                 return $users->random()->id;
             }
         ]);
 
-        $commissions = \App\Models\Commission::factory(10)->create([
-            'user_id' => function () use ($orders) {
-                return $orders->random()->user_id;
-            },
-            'order_id' => function () use ($orders) {
-                return $orders->random()->id;
-            }
-        ]);
-
         $messages = \App\Models\Message::factory(30)->create([
-            'order_id' => function () use ($orders) {
-                return $orders->random()->id;
+            'commission_id' => function () use ($commissions) {
+                return $commissions->random()->id;
             },
-            'sender_id' => function () use ($users) {
-                return $users->random()->id;
-            },
-            'receiver_id' => function () use ($users) {
+            'user_id' => function () use ($users) {
                 return $users->random()->id;
             }
         ]);
@@ -58,10 +47,6 @@ class DatabaseSeeder extends Seeder
         $messages->each(function ($message) use ($attachments) {
             $randomAttachments = $attachments->random(rand(1, 3))->pluck('id')->toArray();
             $message->attachments()->attach($randomAttachments);
-        });
-
-        $orders->each(function ($order) use ($attachments) {
-            $order->attachments()->attach($attachments->random(rand(1, 3))->pluck('id')->toArray());
         });
 
         $actions->each(function ($action) use ($attachments) {

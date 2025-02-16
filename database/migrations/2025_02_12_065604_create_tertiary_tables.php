@@ -19,14 +19,6 @@ return new class extends Migration
             $table->primary(['employee_id', 'action_id']);
         });
 
-        Schema::create('order_attachment', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Order::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
-            $table->timestamps();
-
-            $table->primary(['order_id', 'attachment_id']);;
-        });
-
         Schema::create('commission_attachment', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Commission::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Attachment::class)->constrained()->onDelete('cascade');
@@ -58,7 +50,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('employee_action');
-        Schema::dropIfExists('order_attachment');
         Schema::dropIfExists('commission_attachment');
         Schema::dropIfExists('message_attachment');
         Schema::dropIfExists('action_attachment');

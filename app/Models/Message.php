@@ -12,24 +12,18 @@ class Message extends Model
 
     protected $fillable = [
         'message',
-        'order_id',
-        'sender_id',
-        'receiver_id'
+        'commission_id',
+        'user_id'
     ];
 
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Commission::class);
     }
 
-    public function sender()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'sender_id');
-    }
-
-    public function receiver()
-    {
-        return $this->belongsTo(User::class, 'receiver_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function attachments()

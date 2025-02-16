@@ -11,21 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
-            $table->longtext('order_details');
-            $table->text('delivery_address');
-            $table->string('status');
-            $table->timestamps();
-            $table->dateTime('deadline');
-        });
 
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
-            $table->foreignIdFor(\App\Models\Order::class)->constrained();
-            $table->decimal('set_price', 8, 2);
+            $table->decimal('set_price', 8, 2)->nullable();
             $table->longtext('commission_details');
             $table->text('delivery_address');
             $table->string('status');
@@ -48,9 +38,8 @@ return new class extends Migration
 
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Order::class, 'order_id')->constrained();
-            $table->foreignIdFor(\App\Models\User::class, 'sender_id')->constrained();
-            $table->foreignIdFor(\App\Models\User::class, 'receiver_id')->constrained();
+            $table->foreignIdFor(\App\Models\Commission::class, 'commission_id')->constrained();
+            $table->foreignIdFor(\App\Models\User::class, 'user_id')->constrained();
             $table->longtext('message');
             $table->boolean('is_read')->default(false);
             $table->timestamps();
@@ -72,7 +61,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
         Schema::dropIfExists('commissions');
         Schema::dropIfExists('actions');
         Schema::dropIfExists('messages');
