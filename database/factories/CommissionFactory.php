@@ -19,7 +19,7 @@ class CommissionFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'set_price' => fake()->randomFloat(2, 0, 1000),
-            'commission_details' => fake()->sentence(),
+            'details' => fake()->sentence(),
             'delivery_address' => fake()->address(),
             'status' => fake()->randomElement(['pending', 'completed', 'in progress']),
             'deadline' => fake()->dateTimeThisYear(),

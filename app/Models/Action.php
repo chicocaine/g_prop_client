@@ -13,7 +13,7 @@ class Action extends Model
     protected $fillable = [
         'commission_id',
         'name',
-        'action_details',
+        'details',
         'status',
         'deadline'
     ];

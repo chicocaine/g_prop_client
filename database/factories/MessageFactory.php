@@ -19,7 +19,7 @@ class MessageFactory extends Factory
         return [
             'commission_id' => \App\Models\Commission::factory(),
             'user_id' => \App\Models\User::factory(),
-            'message' => fake()->sentence(),
+            'content' => fake()->sentence(),
             'is_read' => fake()->boolean()
         ];
     }

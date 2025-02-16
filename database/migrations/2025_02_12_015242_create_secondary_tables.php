@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->decimal('set_price', 8, 2)->nullable();
-            $table->longtext('commission_details');
+            $table->longtext('details');
             $table->text('delivery_address');
             $table->string('status');
             $table->timestamps();
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Commission::class)->constrained();
             $table->string('name');
-            $table->longtext('action_details');
+            $table->longtext('details');
             $table->string('status');
             $table->timestamps();
             $table->dateTime('deadline');
@@ -40,7 +40,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Commission::class, 'commission_id')->constrained();
             $table->foreignIdFor(\App\Models\User::class, 'user_id')->constrained();
-            $table->longtext('message');
+            $table->longtext('content');
             $table->boolean('is_read')->default(false);
             $table->timestamps();
         });

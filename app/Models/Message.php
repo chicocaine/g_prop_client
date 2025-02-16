@@ -11,7 +11,7 @@ class Message extends Model
     use HasFactory;
 
     protected $fillable = [
-        'message',
+        'content',
         'commission_id',
         'user_id'
     ];

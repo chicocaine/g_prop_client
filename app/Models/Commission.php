@@ -13,7 +13,7 @@ class Commission extends Model
     protected $fillable = [
         'user_id',
         'set_price',
-        'commission_details',
+        'details',
         'delivery_address',
         'status',
         'deadline',
