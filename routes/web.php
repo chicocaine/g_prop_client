@@ -41,12 +41,12 @@ Route::get('/profile', function () {
 
 Route::get('/commissions', function () {
     return view('commissions.index', [
-        'orders' => App\Models\Order::all()
+        'orders' => App\Models\Commission::all()
     ]);
 });
 
 Route::get('/commissions/{id}', function ($id) {
-    $order = App\Models\Order::find($id);
+    $order = App\Models\Commission::find($id);
     return view('commissions.show', [
         'order' => $order
     ]);
