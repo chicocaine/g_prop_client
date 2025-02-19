@@ -17,6 +17,7 @@
   <main id="container">
     <x-landing.hero />
     <x-landing.about />
+    <x-landing.services-products /> 
   </main>
 </body>
 </html>
