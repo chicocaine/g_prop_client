@@ -21,7 +21,7 @@
           </div>
 
           <div class="pt-4">
-            <h3 class="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+            <h3 class="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100">
               Custom Printed Apparel
             </h3>
             <p class="mt-1 text-gray-600 dark:text-neutral-400">
@@ -36,7 +36,7 @@
           </div>
 
           <div class="pt-4">
-            <h3 class="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+            <h3 class="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100">
               Personalized Souvenirs & Merchandise
             </h3>
             <p class="mt-1 text-gray-600 dark:text-neutral-400">
@@ -52,7 +52,7 @@
           </div>
 
           <div class="pt-4">
-            <h3 class="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+            <h3 class="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 ">
               Large Format & Event Printing
             </h3>
             <p class="mt-1 text-gray-600 dark:text-neutral-400">
@@ -70,7 +70,7 @@
           </div>
 
           <div class="pt-4">
-            <h3 class="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+            <h3 class="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 ">
               Custom Printed Services
             </h3>
             <p class="mt-1 text-gray-600 dark:text-neutral-400">

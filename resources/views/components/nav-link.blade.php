@@ -12,16 +12,16 @@
           <div>
           </div>
           <div>
-            <a class="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300" href="#">Home</a>
+            <a class="inline-block text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Home</a>
           </div>
           <div>
-            <a class="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300" href="#">About</a>
+            <a class="inline-block text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">About</a>
           </div>
           <div>
-            <a class="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300" href="#">Services & Products</a>
+            <a class="inline-block text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Services & Products</a>
           </div>
           <div>
-            <a class="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300" href="#">Contact</a>
+            <a class="inline-block text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Contact</a>
           </div>
         </div>
       </div>
