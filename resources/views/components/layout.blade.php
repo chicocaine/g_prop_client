@@ -16,6 +16,7 @@
 
   <main id="container">
     <x-landing.hero />
+    <x-landing.about />
   </main>
 </body>
 </html>

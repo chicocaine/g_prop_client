@@ -2,7 +2,7 @@
   
   <section id="hero" class="max-h-screen">
   
-    <div class="mt-10 ml-10 max-w flex justify-between">
+    <div class="mt-10 ml-16 max-w flex justify-between">
         <div class="flex flex-col text-start max-w-md">
           <h1 class="max-w-md font-semibold text-white text-5xl md:text-6xl leading-tight md:leading-relaxed">
             <span class="text-[#494946]">YOUR VISION OUR PRINT</span> 
@@ -22,8 +22,6 @@
         
       </div>
     </div>
-
-
   </section>
 
 
