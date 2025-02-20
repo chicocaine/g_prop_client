@@ -18,6 +18,7 @@
     <x-landing.hero />
     <x-landing.about />
     <x-landing.services-products /> 
+    <x-landing.contact />
   </main>
 </body>
 </html>

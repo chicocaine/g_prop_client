@@ -1,4 +1,4 @@
-<section id="services-products" class="max-h-screen">
+<section id="services-products" class="">
     <div class="max-w-7xl px-4 lg:px-8 py-12 lg:py-24 mx-auto">
       <div class="mb-6 sm:mb-10 max-w-2xl text-center mx-auto">
         <h1 class="font-medium text-black text-2xl sm:text-4xl dark:text-white">
