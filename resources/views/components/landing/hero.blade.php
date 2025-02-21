@@ -1,6 +1,6 @@
 
   
-  <section id="hero" class="max-h-screen max-w-screen">
+  <section id="hero" class="max-h-screen max-w-screen mb-10">
   
     <div class="mt-10 ml-16 max-w-screen flex justify-between">
         <div class="flex flex-col text-start max-w-1/2">

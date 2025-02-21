@@ -10,15 +10,12 @@
   <nav>
     <x-nav-link/>
   </nav>  
-  <section>
+  {{-- <section>
     {{ $slot }}
-  </section>
+  </section> --}}
 
   <main id="container">
-    <x-landing.hero />
-    <x-landing.about />
-    <x-landing.services-products /> 
-    <x-landing.contact />
+    <x-orders.register />
   </main>
 </body>
 </html>
