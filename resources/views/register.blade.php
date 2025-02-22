@@ -11,8 +11,8 @@
   Sign In
   </h1>
   <form action="" class="flex flex-col my-10 mb-32">
-    <input class="my-8 w-[419px] h-[59px] rounded-[4px]" type="text" placeholder="Email">
-    <input class="mb-8 w-[419px] h-[59px] rounded-[4px]" type="password" placeholder="Password">
+    <input class="my-8 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]" name="email" type="text" placeholder="Email">
+    <input class="mb-8 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]"  name="password" type="password" placeholder="Password">
     <div class="flex justify-start">
       <button class="align-start bg-[#D9D9D9] rounded-[59px] w-[186px] h-[59px] mr-8">Sign In</button>
       <div class="h-[59px] border-l-2 border-gray-300"></div>

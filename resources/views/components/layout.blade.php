@@ -10,9 +10,9 @@
   <nav>
     <x-nav-link/>
   </nav>  
-  <section>
+  {{-- <section>
     {{ $slot }}
-  </section>
+  </section> --}}
 
   <main id="container">
     <x-landing.hero />

@@ -22,6 +22,11 @@ Route::get('/register', function () {
     return view('register');
 });
 
+Route::get('/sign-up', function () {
+    return view('sign-up');
+});
+
+
 Route::get('/login', function () {
     return view('login');
 });
