@@ -19,6 +19,7 @@
     <x-landing.about />
     <x-landing.services-products /> 
     <x-landing.contact />
+    <x-landing.footer />
   </main>
 </body>
 </html>

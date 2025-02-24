@@ -1,6 +1,6 @@
-<section id="contact" class="max-h-screen my-8">
+<section id="contact" class="max-h-screen mt-8">
 
-<div class="flex flex-col bg-[#D9D9D9] my-10">
+<div class="flex flex-col bg-[#D9D9D9] mt-10">
     <div class="flex justify-center text-4xl font-semibold pt-16">
         <h1 class="font-medium text-black text-2xl sm:text-4xl dark:text-white">
         Contact

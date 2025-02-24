@@ -1,5 +1,5 @@
   <header class="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full py-7">
-    <nav class="relative max-w-7xl w-full flex flex-wrap md:grid md:grid-cols-12 basis-full items-center justify-end px-4  md:px-8 mx-auto" aria-label="Global">
+    <nav class="relative max-w-7xl w-full flex flex-wrap md:grid md:grid-cols-12 basis-full items-center justify-end mx-10" aria-label="Global">
       <div class="md:col-span-6 mx-6">
         <!-- Logo -->
        <a href="#">LOGO</a>
