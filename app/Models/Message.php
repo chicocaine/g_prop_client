@@ -16,7 +16,7 @@ class Message extends Model
         'user_id'
     ];
 
-    public function order()
+    public function commission()
     {
         return $this->belongsTo(Commission::class);
     }
