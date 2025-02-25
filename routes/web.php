@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+
 
 
 
@@ -25,13 +27,13 @@ Route::get('/services', function () {
 });
 
 Route::get('/sign-in', function () {
-    return view('sign-in');
+    return view('pages.sign-in');
 });
 Route::post('/sign-in', [LoginController::class, 'login'])->name('login');
 
 
 Route::get('/register', function () {
-    return view('sign-up');
+    return view('pages.sign-up');
 });
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
@@ -73,3 +75,5 @@ Route::get('/settings', function () {
 Route::get('/user/{id}', [UserController::class, 'show'])->name('user.details');
 Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/commision', [DashboardController::class,'show'])->name('dashboard');

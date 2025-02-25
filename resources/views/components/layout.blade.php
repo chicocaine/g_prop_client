@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>G-Prop Main</title>
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script> 
+    <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 <body>
   <nav>
@@ -14,7 +19,7 @@
     {{ $slot }}
   </section> --}}
 
-  <main id="container">
+  <main id="container" class="pt-20">
     <x-landing.hero />
     <x-landing.about />
     <x-landing.services-products /> 

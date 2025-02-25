@@ -12,7 +12,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('user-details', compact('user'));
+        return view('pages.user-details', compact('user'));
     }
 
     public function update(Request $request, $id)

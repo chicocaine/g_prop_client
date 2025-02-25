@@ -1,6 +1,6 @@
-<section id="contact" class="max-h-screen mt-8">
+<section id="contact" class="max-h-screen mt-8 relative">
 
-<div class="flex flex-col bg-[#D9D9D9] mt-10">
+<div class="flex flex-col bg-[#D9D9D9] mt-10 relative">
     <div class="flex justify-center text-4xl font-semibold pt-16">
         <h1 class="font-medium text-black text-2xl sm:text-4xl dark:text-white">
         Contact
@@ -16,16 +16,19 @@
         </div>
         </div>
     </div>
-    <div class="flex justify-around ">
+    <div class="flex justify-around relative">
 
-        <div class="h-[306px] w-1/3 bg-[#737272] mx-12 text-white text-start py-8 px-8">
+        <div class="h-[306px] w-1/3 bg-[#737272] mx-12 text-white text-start py-8 px-8 relative">
         Message us now
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[88px] h-[88px] bg-[#F66C73] rounded-full"></div>
         </div>
-        <div class="w-1/3 bg-[#737272] mx-12 text-white py-8 px-8">
+        <div class="w-1/3 bg-[#737272] mx-12 text-white py-8 px-8 relative">
         Email us
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[88px] h-[88px] bg-[#F66C73]  rounded-full"></div>
         </div>
-        <div class="w-1/3 bg-[#737272] mx-12 text-white py-8 px-8">
+        <div class="w-1/3 bg-[#737272] mx-12 text-white py-8 px-8 relative">
         Want to order?
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[88px] h-[88px] bg-[#F66C73]  rounded-full"></div>
         </div>
     
     </div>

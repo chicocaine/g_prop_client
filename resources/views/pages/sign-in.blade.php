@@ -1,4 +1,3 @@
-<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CSE-7/Final-Project/g_prop_client/resources/views/sign-in.blade.php -->
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script> 
 <section id="register" class="max-w-screen max-h-screen">
 <div class="max-w-screen max-h-screen flex ">

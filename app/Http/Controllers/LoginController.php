@@ -9,8 +9,12 @@ use Illuminate\Support\Facades\Validator;
 class LoginController extends Controller
 {
     // Show the login form
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
+        if ($request->has('intended')) {
+            session(['url.intended' => route($request->input('intended'))]);
+        }
+
         return view('sign-in');
     }
 
@@ -29,8 +33,8 @@ class LoginController extends Controller
 
         // Attempt to log the user in
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Authentication passed, redirect to the intended page or home
-            return redirect()->route('home')->with('success', 'Login successful!');
+            // Authentication passed, redirect to the intended page or dashboard
+            return redirect()->intended(route('dashboard'))->with('success', 'Login successful!');
         }
 
         // Authentication failed, redirect back with an error message
@@ -38,9 +42,12 @@ class LoginController extends Controller
     }
 
     // Handle logout
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect()->route('home')->with('success', 'Logout successful!');
     }
 }

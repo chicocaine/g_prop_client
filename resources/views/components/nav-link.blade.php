@@ -1,6 +1,5 @@
-<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CSE-7/Final-Project/g_prop_client/resources/views/components/nav-link.blade.php -->
-<header class="flex flex-wrap items-center justify-between w-full py-7">
-  <nav class="relative min-w-screen flex items-center justify-between px-16" aria-label="Global">
+<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+  <nav class="relative min-w-screen flex items-center justify-between px-16 py-4" aria-label="Global">
     <!-- Logo -->
     <div class="flex-shrink-0">
       <a href="#" class="text-xl font-bold">LOGO</a>
@@ -10,9 +9,9 @@
     <!-- Collapse -->
     <div id="navbar-collapse" class="hs-collapse hidden md:flex md:items-center md:space-x-7">
       <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/">Home</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">About</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Services & Products</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Contact</a>
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#about">About</a>
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#services-products">Services & Products</a>
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#contact">Contact</a>
       
       @auth
         <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="{{route('user.details', Auth::user()->id)}}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>

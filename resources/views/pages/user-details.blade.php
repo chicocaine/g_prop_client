@@ -1,4 +1,3 @@
-<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CSE-7/Final-Project/g_prop_client/resources/views/user-details.blade.php -->
 <x-nav-link />
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script> 
 
