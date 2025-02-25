@@ -7,16 +7,17 @@
     <h1>
     Sign Up
     </h1>
-    <form action="" class="flex flex-col my-10 mb-32 justify-center items-center">
+    <form action="{{route('register')}}" class="flex flex-col my-10 mb-32 justify-center items-center" method="POST">
+    @csrf
         <input class="my-4 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]" name="first_name" type="text" placeholder="First Name">
         <input class="my-4 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]" name="last_name" type="text" placeholder="Last Name">
         <input class="my-4 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]" name="email" type="email" placeholder="Email">
         <input class="my-4 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]" name="contact_number" type="text" placeholder="Mobile Number">
         <input class="my-4 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]" name="password" type="password" placeholder="Password">
-        <input class="my-4 mb-8 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]" name="confirm_password" type="password" placeholder="Confirm Password">
+        <input class="my-4 mb-8 w-[419px] h-[59px] rounded-[4px] bg-[#D9D9D9]" name="password_confirmation" type="password" placeholder="Confirm Password">
 
         <div class="flex justify-center pb-24 ">
-        <button class="align-start bg-[#D9D9D9] rounded-[59px] w-[186px] h-[59px] mr-4 ml-8">Sign Up</button>
+        <button type="submit" class="align-start bg-[#D9D9D9] rounded-[59px] w-[186px] h-[59px] mr-4 ml-8">Sign Up</button>
         <div class="h-[59px] border-l-2 border-gray-300"></div>
 
         <div class="flex flex-col justify-center align-start items-start ml-4 mr-10 ">

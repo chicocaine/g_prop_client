@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+
 
 Route::get('/', function () {
     return view('home', [
         'greeting' => 'Hello, World!'
     ]);
-});
+}) ->name('home');
 
 Route::get('/about', function () {
     return view('about');
@@ -18,13 +20,15 @@ Route::get('/services', function () {
     ]);
 });
 
-Route::get('/register', function () {
-    return view('register');
+Route::get('/sign-in', function () {
+    return view('sign-in');
 });
 
-Route::get('/sign-up', function () {
+Route::get('/register', function () {
     return view('sign-up');
 });
+
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 
 Route::get('/login', function () {
