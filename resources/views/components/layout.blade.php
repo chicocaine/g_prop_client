@@ -19,7 +19,7 @@
     {{ $slot }}
   </section> --}}
 
-  <main id="container" class="pt-20">
+  <main id="container">
     <x-landing.hero />
     <x-landing.about />
     <x-landing.services-products /> 

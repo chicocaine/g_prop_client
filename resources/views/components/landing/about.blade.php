@@ -1,4 +1,4 @@
-<section id="about" class="max-h-screen">
+<section id="about" class="max-h-screen pt-10">
 <div class="flex flex-col bg-[#D9D9D9] my-10">
 
 <div class="flex justify-center text-4xl font-semibold pt-16">

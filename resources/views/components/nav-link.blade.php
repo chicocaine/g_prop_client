@@ -8,7 +8,7 @@
     
     <!-- Collapse -->
     <div id="navbar-collapse" class="hs-collapse hidden md:flex md:items-center md:space-x-7">
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/">Home</a>
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#hero">Home</a>
       <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#about">About</a>
       <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#services-products">Services & Products</a>
       <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#contact">Contact</a>
