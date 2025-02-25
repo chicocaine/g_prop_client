@@ -1,30 +1,26 @@
-  <header class="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full py-7">
-    <nav class="relative max-w-7xl w-full flex flex-wrap md:grid md:grid-cols-12 basis-full items-center justify-end mx-10" aria-label="Global">
-      <div class="md:col-span-6 mx-6">
-        <!-- Logo -->
-       <a href="#">LOGO</a>
-        <!-- End Logo -->
-      </div>
+<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CSE-7/Final-Project/g_prop_client/resources/views/components/nav-link.blade.php -->
+<header class="flex flex-wrap items-center justify-between w-full py-7">
+  <nav class="relative min-w-screen flex items-center justify-between px-16" aria-label="Global">
+    <!-- Logo -->
+    <div class="flex-shrink-0">
+      <a href="#" class="text-xl font-bold">LOGO</a>
+    </div>
+    <!-- End Logo -->
+    
+    <!-- Collapse -->
+    <div id="navbar-collapse" class="hs-collapse hidden md:flex md:items-center md:space-x-7">
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Home</a>
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">About</a>
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Services & Products</a>
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Contact</a>
+      
+      @auth
+        <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
+      @else
+        <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="{{ route('login') }}">Sign In</a>
+      @endauth
 
-      <!-- Collapse -->
-      <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6">
-        <div class="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
-          <div>
-          </div>
-          <div>
-            <a class="inline-block text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Home</a>
-          </div>
-          <div>
-            <a class="inline-block text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">About</a>
-          </div>
-          <div>
-            <a class="inline-block text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Services & Products</a>
-          </div>
-          <div>
-            <a class="inline-block text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Contact</a>
-          </div>
-        </div>
-      </div>
-      <!-- End Collapse -->
-    </nav>
-  </header>
+    </div>
+    <!-- End Collapse -->
+  </nav>
+</header>

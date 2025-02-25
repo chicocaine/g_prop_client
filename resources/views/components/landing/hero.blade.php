@@ -12,7 +12,7 @@
             Bringin Your Ideas to Life with Custom Apparel, Souviners, and Event Printing.
             </p>
             <div class="pb-32">
-        <a class=" w-52 my-8 group inline-flex justify-center items-center gap-x-2 py-2 px-3 bg-[#D9D9D9] font-normal text-md text-black rounded-full focus:outline-none " href="#">
+        <a class=" w-52 my-8 group inline-flex justify-center items-center gap-x-2 py-2 px-3 bg-[#D9D9D9] font-normal text-md text-black rounded-full focus:outline-none " href="{{route('login')}}">
               Start Your Order
         </a>
             </div>
