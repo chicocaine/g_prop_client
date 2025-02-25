@@ -24,7 +24,7 @@
             <div>
             <h1>Already have an account?</h1>
             </div>
-            <a href="">
+            <a href="{{ route('login') }}">
             <h1 class="mr-6 text-[#61BCF9]">Log in here</h1> 
             </a>
         </div>

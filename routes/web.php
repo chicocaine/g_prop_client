@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+
 
 
 Route::get('/', function () {
@@ -23,11 +25,12 @@ Route::get('/services', function () {
 Route::get('/sign-in', function () {
     return view('sign-in');
 });
+Route::post('/sign-in', [LoginController::class, 'login'])->name('login');
+
 
 Route::get('/register', function () {
     return view('sign-up');
 });
-
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 
