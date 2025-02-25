@@ -9,13 +9,13 @@
     
     <!-- Collapse -->
     <div id="navbar-collapse" class="hs-collapse hidden md:flex md:items-center md:space-x-7">
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Home</a>
+      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/">Home</a>
       <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">About</a>
       <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Services & Products</a>
       <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">Contact</a>
       
       @auth
-        <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
+        <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="{{route('user.details', Auth::user()->id)}}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
       @else
         <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="{{ route('login') }}">Sign In</a>
       @endauth

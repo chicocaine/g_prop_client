@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
+
 
 
 
@@ -67,3 +69,7 @@ Route::get('/commissions/{id}', function ($id) {
 Route::get('/settings', function () {
     return view('settings');
 });
+
+Route::get('/user/{id}', [UserController::class, 'show'])->name('user.details');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
