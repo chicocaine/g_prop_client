@@ -1,7 +1,7 @@
 @extends('components.dashboard-layout')
 
 @section('content')
-<div class="flex justify-between ">
+<div class="flex justify-between mt-22">
     <div class="flex w-[325px] min-h-screen bg-white dark:bg-gray-800 justify-end align-center pr-[10px]">
         <div class="flex flex-col">
             <div class="flex justify-start items-center my-4 gap-4 px-4 w-[206px] h-[33px] rounded-[16px] bg-[#D3F3FD]">
