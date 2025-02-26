@@ -11,7 +11,7 @@
       <ul class="space-y-2 font-medium">
          
          <li>
-            <a href="#" class="mt-[31px] mb-[31px] flex justify-center items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="/" class="mt-[31px] mb-[31px] flex justify-center items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <div class="w-[24px] h-[16px]">
                 <img src="hamburger.svg" alt="hamburger menu">
                 

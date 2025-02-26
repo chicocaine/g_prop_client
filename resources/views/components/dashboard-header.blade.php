@@ -1,4 +1,4 @@
-  <nav class="min-w-screen flex items-center align-center justify-start px-4" aria-label="Global">
+  <nav class="w-17/18 flex items-center align-center justify-start px-4" aria-label="Global">
       <a href="#" class="text-xl font-bold">
         <img src="logo.svg" alt="logo" width="86px" height="56px">
       </a>
