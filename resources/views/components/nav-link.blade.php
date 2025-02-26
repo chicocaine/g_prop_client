@@ -2,7 +2,7 @@
   <nav class="relative min-w-screen flex items-center justify-between px-16 py-4" aria-label="Global">
     <!-- Logo -->
     <div class="flex-shrink-0">
-      <a href="#" class="text-xl font-bold">LOGO</a>
+      <a href="/" class="text-xl font-bold">LOGO</a>
     </div>
     <!-- End Logo -->
     
@@ -16,7 +16,7 @@
       @auth
         <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="{{route('user.details', Auth::user()->id)}}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
       @else
-        <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="{{ route('login') }}">Sign In</a>
+        <a class="text-[#F66C73] hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="{{ route('login') }}">Sign In</a>
       @endauth
 
     </div>

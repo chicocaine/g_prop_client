@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function show()
     {
-        return view('pages.dashboard');
+        return view('components.dashboard-layout');
     }
 }
