@@ -5,6 +5,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CommissionController;
+
 
 
 
@@ -77,3 +79,4 @@ Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update')
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/commision', [DashboardController::class,'show'])->name('dashboard');
+Route::get('/view-commission', [CommissionController::class, 'index'])->name('dashboard');

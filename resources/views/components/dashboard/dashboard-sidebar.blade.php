@@ -42,6 +42,6 @@
       </ul>
    </div>
 </aside>
-<div class="p-4 sm:ml-24">
-    <x-dashboard-header />
+<div class="p-4 sm:ml-18">
+    <x-dashboard.dashboard-header />
 </div>

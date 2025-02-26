@@ -13,14 +13,14 @@
 </head>
 <body>
   <nav>
-    <x-dashboard-sidebar/>
+    <x-dashboard.dashboard-sidebar/>
   </nav>  
-  {{-- <section>
-    {{ $slot }}
-  </section> --}}
 
-  <main id="container">
-   
+  <main id="container flex">
+    <x-dashboard.dashboard-view />
+    
+  
+    
   </main>
 </body>
 </html>
