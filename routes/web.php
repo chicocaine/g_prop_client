@@ -6,17 +6,13 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommissionController;
-
-
-
-
-
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('home', [
         'greeting' => 'Hello, World!'
     ]);
-}) ->name('home');
+})->name('home');
 
 Route::get('/about', function () {
     return view('about');
@@ -33,12 +29,10 @@ Route::get('/sign-in', function () {
 });
 Route::post('/sign-in', [LoginController::class, 'login'])->name('login');
 
-
 Route::get('/register', function () {
     return view('pages.sign-up');
 });
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
-
 
 Route::get('/login', function () {
     return view('login');
@@ -51,7 +45,6 @@ Route::get('/pricing', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
-
 
 Route::get('/profile', function () {
     return view('profile');
@@ -78,5 +71,8 @@ Route::get('/user/{id}', [UserController::class, 'show'])->name('user.details');
 Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/commision', [DashboardController::class,'show'])->name('dashboard');
-Route::get('/view-commission', [CommissionController::class, 'index'])->name('dashboard');
+// Protecting the dashboard and orders routes with auth middleware
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [CommissionController::class, 'index'])->name('dashboard');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+});

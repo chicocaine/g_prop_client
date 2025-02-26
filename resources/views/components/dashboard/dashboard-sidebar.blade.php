@@ -1,4 +1,3 @@
-
 <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
    <span class="sr-only">Open sidebar</span>
    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +19,7 @@
          </li>
          
          <li>
-            <a href="#" class="mb-[31px] flex justify-center items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="{{ route('orders') }}" class="mb-[31px] flex justify-center items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <div class="w-[24px] h-[16px]">
                 <img src="Order.svg" alt="order menu">
                 <div class="flex justify-center text-[12px]">
@@ -30,7 +29,7 @@
             </a>
          </li>
          <li>
-            <a href="#" class="mb-[31px] flex justify-center items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="{{ route('dashboard') }}" class="mb-[31px] flex justify-center items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <div class="w-[24px] h-[16px]">
                 <img src="view.svg" alt="view menu">
                 <div class="flex justify-center text-[12px]">   

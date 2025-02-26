@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,6 +10,6 @@ class CommissionController extends Controller
     public function index()
     {
         $commissions = Commission::all();
-        return view('components.dashboard.view-table', compact('commissions'));
+        return view('components.dashboard.dashboard-view', compact('commissions'));
     }
 }

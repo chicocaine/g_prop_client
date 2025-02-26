@@ -16,11 +16,8 @@
     <x-dashboard.dashboard-sidebar/>
   </nav>  
 
-  <main id="container flex">
-    <x-dashboard.dashboard-view />
-    
-  
-    
+  <main id="container" class="flex">
+    @yield('content')
   </main>
 </body>
 </html>
