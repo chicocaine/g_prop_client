@@ -13,7 +13,8 @@ class Message extends Model
     protected $fillable = [
         'content',
         'commission_id',
-        'user_id'
+        'user_id',
+        'created_at'
     ];
 
     public function commission()

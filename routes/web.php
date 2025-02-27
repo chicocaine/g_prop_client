@@ -6,6 +6,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MessageController;
+
 
 Route::get('/', [LoginController::class, 'index'])->name('home');
 
@@ -70,4 +72,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [CommissionController::class, 'index'])->name('dashboard');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/inbox', [CommissionController::class, 'showPendingAndCancelled'])->name('inbox');
+    Route::get('/commissions/pending-cancelled', [CommissionController::class, 'showPendingAndCancelled'])->name('commissions.pending-cancelled');
+    Route::get('/commissions/{commissionId}/messages', [CommissionController::class, 'getMessages'])->name('commissions.messages');
 });

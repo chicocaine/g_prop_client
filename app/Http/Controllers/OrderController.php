@@ -7,6 +7,6 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return view('components.dashboard.dashboard-order');
+        return view('orders.dashboard-order');
     }
 }
