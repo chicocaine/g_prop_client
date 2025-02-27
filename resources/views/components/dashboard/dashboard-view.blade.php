@@ -10,21 +10,21 @@
             </div>
             <p>Filter</p>
             <div class="flex flex-col my-4 pl-8 gap-y-4">
-                <a href="">
+                <a href="{{ route('dashboard', ['status' => 'completed']) }}">
                     <div class="flex items-center gap-x-2">
                         <img src="completed.svg" alt="Completed Logo" width="16px" height="16px">
                         Completed
                     </div>
                 </a>
-                <a href="">
+                <a href="{{ route('dashboard', ['status' => 'processing']) }}">
                     <div class="flex items-center gap-x-2">
-                        <img src="processing.svg" alt="Completed Logo" width="16px" height="16px">
+                        <img src="processing.svg" alt="Processing Logo" width="16px" height="16px">
                         Processing
                     </div>
                 </a>
-                <a href="">
+                <a href="{{ route('dashboard', ['status' => 'cancelled']) }}">
                     <div class="flex items-center gap-x-2">
-                        <img src="cancelled.svg" alt="Completed Logo" width="16px" height="16px">
+                        <img src="cancelled.svg" alt="Cancelled Logo" width="16px" height="16px">
                         Cancelled
                     </div>
                 </a>

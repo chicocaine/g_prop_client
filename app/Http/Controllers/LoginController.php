@@ -50,4 +50,9 @@ class LoginController extends Controller
 
         return redirect()->route('home')->with('success', 'Logout successful!');
     }
+
+     public function index()
+    {
+        return view('components.layout');
+    }
 }

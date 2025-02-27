@@ -4,15 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\OrderController;
 
-Route::get('/', function () {
-    return view('home', [
-        'greeting' => 'Hello, World!'
-    ]);
-})->name('home');
+Route::get('/', [LoginController::class, 'index'])->name('home');
+
 
 Route::get('/about', function () {
     return view('about');
@@ -71,7 +67,6 @@ Route::get('/user/{id}', [UserController::class, 'show'])->name('user.details');
 Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Protecting the dashboard and orders routes with auth middleware
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [CommissionController::class, 'index'])->name('dashboard');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
