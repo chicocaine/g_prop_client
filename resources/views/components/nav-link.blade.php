@@ -4,7 +4,9 @@
   <nav class="relative min-w-screen flex items-center justify-between px-16 py-4" aria-label="Global">
     <!-- Logo -->
     <div class="flex-shrink-0">
-      <a href="/" class="text-xl font-bold">LOGO</a>
+      <a href="/" class="text-xl font-bold">
+      <img src="logo.svg" alt="LOGO" width="80px" height="80px">
+      </a>
     </div>
     <!-- End Logo -->
     

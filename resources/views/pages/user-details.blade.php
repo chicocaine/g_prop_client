@@ -1,5 +1,5 @@
-<x-nav-link />
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script> 
+<x-nav-link />
 
 <body class="bg-gray-100 pt-10">
     <div class="container mx-auto mt-10 p-5 bg-white rounded-lg shadow-lg">
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Modal -->
-    <div id="updateModal" class="fixed inset-0 items-center justify-center flex bg-opacity-50 hidden">
+    <div id="updateModal" class="fixed inset-0 items-center justify-center flex bg-opacity-50 ">
         <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-1/2">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-lg font-semibold text-gray-900">Update Information</h3>
