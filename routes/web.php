@@ -78,4 +78,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/inbox', [CommissionController::class, 'showPendingAndCancelled'])->name('inbox');
     Route::get('/commissions/pending-cancelled', [CommissionController::class, 'showPendingAndCancelled'])->name('commissions.pending-cancelled');
     Route::get('/commissions/{commissionId}/messages', [CommissionController::class, 'getMessages'])->name('commissions.messages');
+    Route::post('/commissions/{commissionId}/messages', [CommissionController::class, 'storeMessage'])->name('commissions.storeMessage');
+
 });

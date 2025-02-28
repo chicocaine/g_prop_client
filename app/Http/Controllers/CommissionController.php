@@ -37,8 +37,28 @@ class CommissionController extends Controller
     public function getMessages($commissionId)
     {
         $messages = Message::where('commission_id', $commissionId)->with('user')->get();
-        $html = view('components.messages', compact('messages'))->render();
+        $html = view('components.messages', compact('messages','commissionId'))->render();
 
         return response()->json(['html' => $html]);
+    }
+    
+    public function storeMessage(Request $request, $commissionId)
+    {
+        $request->validate([
+            'content' => 'required|string|max:255',
+        ]);
+    
+        $message = new Message();
+        $message->commission_id = $commissionId;
+        $message->user_id = Auth::id();
+        $message->content = $request->content;
+        $message->save();
+    
+        $message->load('user'); 
+    
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+        ]);
     }
 }
