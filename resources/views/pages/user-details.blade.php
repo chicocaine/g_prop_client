@@ -32,7 +32,7 @@
             </dl>
         </div>
         <div class="flex justify-end mt-6">
-            <button id="openModal" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
+            <button id="openModal" class="bg-blue-500 text-white px-4 py-2 rounded">Edit Profile</button>
         </div>
         <form action="{{ route('logout') }}" method="POST" class="flex justify-end my-4">
             @csrf

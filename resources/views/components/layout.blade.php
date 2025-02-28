@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>G-Prop Main</title>
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
     <style>
     html {
       scroll-behavior: smooth;
