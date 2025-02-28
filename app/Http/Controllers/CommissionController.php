@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Commission;
 use App\Models\Message;
+use App\Models\Faq;
+
 
 class CommissionController extends Controller
 {
@@ -52,16 +54,21 @@ class CommissionController extends Controller
             'message' => $message,
         ]);
     }
-public function showPendingAndCancelled()
+public function showInbox()
 {
     $user = Auth::user();
     $commissions = Commission::where('user_id', $user->id)
-        ->where('status', ['cancelled', 'pending'])
+        ->whereIn('status', ['pending', 'processing','cancelled'])
         ->get();
+
+    $faqs = Faq::all();
+
 
     return view('orders.dashboard-order', [
         'commissions' => $commissions,
-        'view' => 'inbox'
+        'view' => 'inbox',
+        'faqs' => $faqs,
+
     ]);
 }
 
@@ -76,6 +83,58 @@ public function showArchived()
         'commissions' => $commissions,
         'view' => 'archive'
     ]);
+}
+
+public function store(Request $request)
+{
+    $user = Auth::user();
+    $commission = Commission::create([
+        'user_id' => $user->id,
+        'set_price' => 0,
+        'details' => $request->input('question'),
+        'delivery_address' => '',
+        'status' => 'pending',
+        'deadline' => now()->addWeek(),
+        'completed_at' => null
+    ]);
+
+    // Create the first message
+    $message = new Message();
+    $message->commission_id = $commission->id;
+    $message->user_id = $user->id;
+    $message->content = $request->input('question');
+    $message->save();
+
+    return response()->json([
+        'success' => true,
+        'commission' => $commission
+    ]);
+}
+
+
+
+public function showDashboard(Request $request)
+{
+    $user = Auth::user();
+    $commissions = Commission::where('user_id', $user->id)->get();
+    $faqs = Faq::all();
+
+    if ($request->ajax()) {
+        return view('components.inbox', compact('commissions'))->render();
+    }
+
+    return view('orders.dashboard-order', [
+        'commissions' => $commissions,
+        'faqs' => $faqs,
+        'view' => 'inbox'
+    ]);
+}
+public function getInboxContent()
+{
+    $user = Auth::user();
+    $commissions = Commission::where('user_id', $user->id)->whereIn('status', ['pending', 'processing', 'cancelled'])->get();
+
+    return view('components.inbox-content', compact('commissions'))->render();
 }
 
 }
