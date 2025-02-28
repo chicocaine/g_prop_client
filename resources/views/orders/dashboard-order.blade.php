@@ -11,7 +11,7 @@
             <div class="flex justify-start items-center my-4 gap-4 px-4 w-[204px] h-[32px] rounded-[16px] bg-white hover:bg-[#D3F3FD]">
                 <a href="{{ route('inbox') }}">
                     <div class="flex items-center gap-x-2">
-                        <img src="active-commission.svg" alt="Active Logo" width="16px" height="16px">
+                        <img src="active-commission.svg" alt="Active Logo" width="16px" height="16p id="inbox-containerx">
                         Active
                     </div>
                 </a>
@@ -36,7 +36,7 @@
 </div>
 
 <!-- FAQ Modal -->
-<div id="faqModal" class="hs-overlay hidden fixed inset-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="faqModalLabel">
+<div id="faqModal" class="fixed inset-0 overflow-y-auto h-full w-full hidden">
     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
         <div class="mt-3 text-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">Frequently Asked Questions</h3>

@@ -1,4 +1,4 @@
- <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-700">
+ <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-700" id="inbox-content">
           <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
               @if ($commissions->isEmpty())

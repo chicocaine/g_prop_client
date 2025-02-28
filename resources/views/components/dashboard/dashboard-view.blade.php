@@ -21,19 +21,13 @@
                 <a href="{{ route('dashboard', ['status' => 'processing']) }}">
                     <div class="flex items-center gap-x-2">
                         <img src="processing.svg" alt="Processing Logo" width="16px" height="16px">
-                        Processing
+                        Active
                     </div>
                 </a>
                 <a href="{{ route('dashboard', ['status' => 'pending-for-approval']) }}">
                     <div class="flex items-center gap-x-2">
                         <img src="pending.svg" alt="Cancelled Logo" width="16px" height="16px">
-                        Pending For Approval
-                    </div>
-                </a>
-                <a href="{{ route('dashboard', ['status' => 'cancelled']) }}">
-                    <div class="flex items-center gap-x-2">
-                        <img src="cancelled.svg" alt="Cancelled Logo" width="16px" height="16px">
-                        Cancelled
+                        Pending 
                     </div>
                 </a>
             </div>
