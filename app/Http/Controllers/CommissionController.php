@@ -24,15 +24,6 @@ class CommissionController extends Controller
         return view('components.dashboard.dashboard-view', compact('commissions'));
     }
 
-    public function showPendingAndCancelled()
-    {
-        $user = Auth::user();
-        $commissions = Commission::where('user_id', $user->id)
-            ->whereIn('status', ['pending', 'cancelled'])
-            ->get();
-
-        return view('orders.dashboard-order', compact('commissions'));
-    }
 
     public function getMessages($commissionId)
     {
@@ -61,4 +52,30 @@ class CommissionController extends Controller
             'message' => $message,
         ]);
     }
+public function showPendingAndCancelled()
+{
+    $user = Auth::user();
+    $commissions = Commission::where('user_id', $user->id)
+        ->where('status', ['cancelled', 'pending'])
+        ->get();
+
+    return view('orders.dashboard-order', [
+        'commissions' => $commissions,
+        'view' => 'inbox'
+    ]);
+}
+
+public function showArchived()
+{
+    $user = Auth::user();
+    $commissions = Commission::where('user_id', $user->id)
+        ->where('status', 'completed')
+        ->get();
+
+    return view('orders.dashboard-order', [
+        'commissions' => $commissions,
+        'view' => 'archive'
+    ]);
+}
+
 }

@@ -56,9 +56,6 @@ Route::get('/commissions', function () {
 
 Route::get('/commissions/{id}', function ($id) {
     $order = App\Models\Commission::find($id);
-    return view('commissions.show', [
-        'order' => $order
-    ]);
 });
 
 Route::get('/settings', function () {
@@ -77,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/inbox', [CommissionController::class, 'showPendingAndCancelled'])->name('inbox');
     Route::get('/commissions/pending-cancelled', [CommissionController::class, 'showPendingAndCancelled'])->name('commissions.pending-cancelled');
+    Route::get('/archive', [CommissionController::class, 'showArchived'])->name('commissions.archive');
     Route::get('/commissions/{commissionId}/messages', [CommissionController::class, 'getMessages'])->name('commissions.messages');
     Route::post('/commissions/{commissionId}/messages', [CommissionController::class, 'storeMessage'])->name('commissions.storeMessage');
 

@@ -13,7 +13,7 @@
          </li>
          
          <li>
-            <a href="{{ route('orders') }}" class="mb-[31px] flex justify-center items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="{{ route('inbox') }}" class="mb-[31px] flex justify-center items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <div class="w-[24px] h-[16px]">
                 <img src="Order.svg" alt="order menu">
                 <div class="flex justify-center text-[12px]">

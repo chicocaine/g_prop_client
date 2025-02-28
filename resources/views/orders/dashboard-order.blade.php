@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div class="flex justify-start items-center gap-4 px-4 w-[204px] h-[32px] rounded-[16px] bg-white hover:bg-[#D3F3FD]">
-                <a href="">
+                <a href="{{ route('commissions.archive') }}">
                     <div class="flex items-center gap-x-2">
                         <img src="archive.svg" alt="Archive Logo" width="16px" height="16px">
                         Archive
@@ -29,9 +29,11 @@
         </div>
     </div>
     <div class="flex-1 w-[1080px]">
-        @isset($commissions)
+        @if($view === 'inbox')
             <x-inbox :commissions="$commissions"/>
-        @endisset
+        @elseif($view === 'archive')
+            <x-archive :commissions="$commissions"/>
+        @endif
     </div>
 </div>
 @endsection
