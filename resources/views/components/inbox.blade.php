@@ -38,7 +38,17 @@
         messagesContainer.setAttribute('data-commission-id', commissionId);
         messagesContainer.innerHTML = data.html;
 
-        
+        // Add event listener to the textarea for the "Enter" key press
+        const messageContent = document.getElementById('message-content');
+        if (messageContent) {
+          messageContent.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              sendMessage();
+            }
+          });
+        }
+
         setTimeout(() => {
           const messagesDiv = messagesContainer.querySelector('div.overflow-y-auto');
           if (messagesDiv) {
@@ -74,23 +84,11 @@
         `;
         document.getElementById('message-content').value = '';
 
-        
         const messagesDiv = document.querySelector('#messages-container div.overflow-y-auto');
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
       }
     });
   }
-
-  
-  document.addEventListener('DOMContentLoaded', (event) => {
-    const messageContent = document.getElementById('message-content');
-    messageContent.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    });
-  });
 </script>
 </div>
 
@@ -115,5 +113,4 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
 }
-
 </style>

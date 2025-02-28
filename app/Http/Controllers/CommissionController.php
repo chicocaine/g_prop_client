@@ -51,7 +51,7 @@ class CommissionController extends Controller
         $message = new Message();
         $message->commission_id = $commissionId;
         $message->user_id = Auth::id();
-        $message->content = $request->content;
+        $message->content = nl2br(e($request->content)); 
         $message->save();
     
         $message->load('user'); 
