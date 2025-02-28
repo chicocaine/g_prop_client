@@ -20,7 +20,7 @@ class ActionFactory extends Factory
             'commission_id' => \App\Models\Commission::factory(),
             'name' => fake()->word(),
             'details' => fake()->sentence(),
-            'status' => fake()->randomElement(['pending-for-approval', 'processing', 'cancelled', 'completed']),
+            'status' => fake()->randomElement(['pending', 'completed', 'active']),
             'deadline' => fake()->dateTimeThisYear()
         ];
     }

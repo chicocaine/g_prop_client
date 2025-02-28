@@ -21,7 +21,7 @@ class CommissionFactory extends Factory
             'set_price' => fake()->randomFloat(2, 0, 1000),
             'details' => fake()->sentence(),
             'delivery_address' => fake()->address(),
-            'status' => fake()->randomElement(['cancelled', 'completed', 'processing','pending']),
+            'status' => fake()->randomElement(['cancelled', 'completed', 'pending', 'active']),
             'deadline' => fake()->dateTimeThisYear(),
             'completed_at' => fake()->dateTimeThisYear()
         ];
