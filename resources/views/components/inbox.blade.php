@@ -28,7 +28,6 @@
 <div id="messages-container">
   <!-- Messages will be loaded here -->
 </div>
-
 <script>
   function showMessages(commissionId) {
     fetch(`/commissions/${commissionId}/messages`)
@@ -74,11 +73,12 @@
     .then(data => {
       if (data.success) {
         const messagesContainer = document.querySelector('#messages-container tbody');
+        const formattedContent = data.message.content.replace(/\n/g, '<br>'); // Replace new lines with <br> tags
         messagesContainer.innerHTML += `
           <tr class="bg-white hover:bg-gray-50 dark:bg-neutral-900 shadow-sm mb-[1px] dark:hover:bg-neutral-800">
             <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900 dark:text-neutral-200" style="word-break: break-word;">
               <p class="text-right font-bold"> ${data.message.user.first_name}: ${data.message.user.last_name} </p>
-              <p class="text-right">${data.message.content} </p>
+              <p class="text-right">${formattedContent} </p>
             </td>
           </tr>
         `;
