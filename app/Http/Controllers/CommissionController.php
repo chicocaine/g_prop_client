@@ -78,10 +78,14 @@ public function showArchived()
     $commissions = Commission::where('user_id', $user->id)
         ->where('status', 'completed')
         ->get();
+    $faqs = Faq::all();
+
 
     return view('orders.dashboard-order', [
         'commissions' => $commissions,
-        'view' => 'archive'
+        'view' => 'archive',
+        'faqs' => $faqs,
+
     ]);
 }
 

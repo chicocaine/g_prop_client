@@ -38,7 +38,7 @@
 <!-- FAQ Modal -->
 <div id="faqModal" class="fixed inset-0 overflow-y-auto h-full w-full hidden">
     <div class="fixed inset-0 bg-black opacity-50"></div> <!-- Overlay -->
-    <div class="relative top-20 mx-auto p-5 w-[554px] shadow-lg rounded-md bg-white">
+    <div class="relative top-20 mx-auto px-5 pb-5 pt-2 w-[554px] shadow-lg rounded-md bg-white">
         <div class="mt-3 text-center">
             <div class="flex justify-end">
                 <button onclick="closeFaqModal()" class="text-gray-500 hover:text-gray-700 focus:outline-none">
