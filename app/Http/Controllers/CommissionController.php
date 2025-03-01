@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Commission;
 use App\Models\Message;
 use App\Models\Faq;
+use App\Models\Attachment;
+
 
 
 class CommissionController extends Controller
@@ -27,31 +29,45 @@ class CommissionController extends Controller
     }
 
 
-    public function getMessages($commissionId)
+        public function getMessages($commissionId)
     {
-        $messages = Message::where('commission_id', $commissionId)->with('user')->get();
-        $html = view('components.messages', compact('messages','commissionId'))->render();
-
+        $messages = Message::where('commission_id', $commissionId)
+            ->with(['user', 'attachments']) // Load attachments
+            ->get();
+        $html = view('components.messages', compact('messages', 'commissionId'))->render();
+    
         return response()->json(['html' => $html]);
     }
     
-    public function storeMessage(Request $request, $commissionId)
+        public function storeMessage(Request $request, $commissionId)
     {
-        $request->validate([
-            'content' => 'required|string|max:255',
-        ]);
-    
+        dd($request->all());
         $message = new Message();
+        $message->content = $request->input('content');
         $message->commission_id = $commissionId;
         $message->user_id = Auth::id();
-        $message->content = nl2br(e($request->content)); 
         $message->save();
     
-        $message->load('user'); 
+        // Handle attachments
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                $path = $file->store('attachments', 'public');
+                $attachment = new Attachment();
+                $attachment->file_name = $file->getClientOriginalName();
+                $attachment->file_path = $path;
+                $attachment->uploaded_by = Auth::id();
+                $attachment->save();
+    
+                $message->attachments()->attach($attachment->id);
+            }
+        }
+    
+        $message->load('user', 'attachments');
     
         return response()->json([
             'success' => true,
             'message' => $message,
+            'attachments' => $message->attachments
         ]);
     }
 public function showInbox()

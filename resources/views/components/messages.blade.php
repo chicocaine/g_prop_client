@@ -20,6 +20,13 @@
                                                 {!! $message->content !!}
                                             </div>
                                             @endif
+                                            @if ($message->attachments->isNotEmpty())
+                                                <div class="mt-2 flex justify-end">
+                                                    @foreach ($message->attachments as $attachment)
+                                                        <a href="{{ asset('storage/' . $attachment->file_path) }}" target="_blank" class="text-blue-500 hover:underline">{{ $attachment->file_name }}</a>
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                         </td>   
                                     </tr>
                                 @endforeach
@@ -37,7 +44,7 @@
             <div class="absolute bottom-px inset-x-px p-2 rounded-b-lg bg-gray-100 dark:bg-neutral-800">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center">
-                        <input type="file" id="attachment" class="hidden" multiple>
+                        <input type="file" id="attachment" class="hidden" multiple enctype="multipart/form-data" />
                         <button type="button" onclick="document.getElementById('attachment').click()" class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05L12.25 20.24a6 6 0 0 1-8.49-8.49L12.33 3.18A4 4 0 1 1 18 8.84L9.41 17.41a2 2 0 0 1-2.83-2.83L15.07 6.18"/></svg>
                         </button>

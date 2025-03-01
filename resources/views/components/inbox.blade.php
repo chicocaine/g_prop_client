@@ -49,38 +49,54 @@
       });
   }
 
-  function sendMessage() {
-    const content = document.getElementById('message-content').value;
-    const commissionId = document.getElementById('messages-container').getAttribute('data-commission-id');
-
-    fetch(`/commissions/${commissionId}/messages`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-      },
-      body: JSON.stringify({ content })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        const messagesContainer = document.querySelector('#messages-container tbody');
-        const formattedContent = data.message.content.replace(/\n/g, '<br>'); // Replace new lines with <br> tags
-        messagesContainer.innerHTML += `
-          <tr class="bg-white hover:bg-gray-50 dark:bg-neutral-900 shadow-sm mb-[1px] dark:hover:bg-neutral-800">
-            <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900 dark:text-neutral-200" style="word-break: break-word;">
-              <p class="text-right font-bold"> ${data.message.user.first_name}: ${data.message.user.last_name} </p>
-              <p class="text-right">${formattedContent} </p>
-            </td>
-          </tr>
-        `;
-        document.getElementById('message-content').value = '';
-
-        const messagesDiv = document.querySelector('#messages-container div.overflow-y-auto');
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-      }
-    });
-  }
+        function sendMessage() {
+        const content = document.getElementById('message-content').value;
+        const commissionId = document.querySelector('[data-commission-id]').getAttribute('data-commission-id');
+        const attachmentInput = document.getElementById('attachment');
+        const formData = new FormData();
+    
+        formData.append('content', content);
+        for (let i = 0; i < attachmentInput.files.length; i++) {
+            formData.append('attachments[]', attachmentInput.files[i]);
+        }
+    
+        fetch(`/commissions/${commissionId}/messages`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const messagesContainer = document.querySelector('#messages-container tbody');
+                const formattedContent = data.message.content.replace(/\n/g, '<br>'); // Replace new lines with <br> tags
+                let attachmentsHtml = '';
+                if (data.attachments && data.attachments.length > 0) {
+                    attachmentsHtml = '<div class="mt-2">';
+                    data.attachments.forEach(attachment => {
+                        attachmentsHtml += `<a href="${attachment.file_path}" target="_blank" class="text-blue-500 hover:underline">${attachment.file_name}</a>`;
+                    });
+                    attachmentsHtml += '</div>';
+                }
+                messagesContainer.innerHTML += `
+                    <tr class="bg-white hover:bg-gray-50 dark:bg-neutral-900 shadow-sm mb-[1px] dark:hover:bg-neutral-800">
+                        <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900 dark:text-neutral-200" style="word-break: break-word;">
+                            <p class="text-right font-bold">${data.message.user.first_name} ${data.message.user.last_name}:</p>
+                            <p class="text-right">${formattedContent}</p>
+                            ${attachmentsHtml}
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('message-content').value = '';
+                attachmentInput.value = '';
+    
+                const messagesDiv = document.querySelector('#messages-container div.overflow-y-auto');
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        });
+    }
 </script>
 </div>
 
