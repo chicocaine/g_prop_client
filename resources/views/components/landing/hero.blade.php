@@ -1,6 +1,6 @@
 <section id="hero" class="max-h-screen max-w-screen mb-10 pt-20">
-    <div class="mt-10 ml-16 max-w-screen flex justify-between">
-        <div class="flex flex-col text-start max-w-1/2">
+    <div class="mt-22 ml-16 max-w-screen flex justify-between">
+        <div class="flex flex-col text-start max-w-1/2 pt-10">
             <h1 class="max-w-md font-semibold text-white text-5xl md:text-6xl leading-tight md:leading-relaxed">
                 <span class="text-[#494946]">YOUR VISION OUR PRINT</span> 
             </h1>
@@ -21,7 +21,8 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-1/2 bg-[#D9D9D9] w-6xl">
+        <div class="w-[556px] h-[476px] mr-32 ">
+            <img src="hero-img.svg" alt="hero image" class="w-full h-full object-cover pb-20">
         </div>
     </div>
 </section>

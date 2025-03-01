@@ -31,9 +31,9 @@
     </div>
   </form>
   </div>
-
+    
   <div class="w-3/5 min-h-screen bg-[#D9D9D9]">
-
+    <img src="register-bg.svg" alt="register" class="w-full h-full object-cover">
   </div>
 
 

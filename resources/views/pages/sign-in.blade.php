@@ -2,7 +2,7 @@
 <section id="register" class="max-w-screen max-h-screen">
 <div class="max-w-screen max-h-screen flex ">
   <div class="w-3/5 min-h-screen bg-[#D9D9D9]">
-
+    <img src="sign-in-bg.svg" alt="sign in cover" class="w-full h-full object-cover">
   </div>
 
   <div class="w-2/5 min-h-screen bg-white flex flex-col justify-center items-center">
