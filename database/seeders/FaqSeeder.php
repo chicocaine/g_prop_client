@@ -13,7 +13,11 @@ class FaqSeeder extends Seeder
      */
     public function run()
     {
-        Faq::create(['question' => 'What is Laravel?'    ]);
-        Faq::create(['question' => 'How to install Laravel?']);
+        Faq::create(['question' => 'I want to Start a Commission'    ]);
+        Faq::create(['question' => 'What are the Services that G-PROP provides?']);
+        Faq::create(['question' => 'How is the commission calculated?']);
+        Faq::create(['question' => 'Can I modify my commission after placing it?']);
+        Faq::create(['question' => 'What payment methods do you accepts?']);
+
     }
 }
