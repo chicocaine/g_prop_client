@@ -39,37 +39,49 @@ class CommissionController extends Controller
         return response()->json(['html' => $html]);
     }
     
-        public function storeMessage(Request $request, $commissionId)
-    {
-        dd($request->all());
-        $message = new Message();
-        $message->content = $request->input('content');
-        $message->commission_id = $commissionId;
-        $message->user_id = Auth::id();
-        $message->save();
-    
-        // Handle attachments
-        if ($request->hasFile('attachments')) {
-            foreach ($request->file('attachments') as $file) {
-                $path = $file->store('attachments', 'public');
-                $attachment = new Attachment();
-                $attachment->file_name = $file->getClientOriginalName();
-                $attachment->file_path = $path;
-                $attachment->uploaded_by = Auth::id();
-                $attachment->save();
-    
-                $message->attachments()->attach($attachment->id);
+    public function storeMessage(Request $request, $commissionId)
+        {
+            $request->validate([
+                'attachments.*' => 'file|max:10240' // Validate each attachment (max size: 10MB)
+            ]);
+        
+            try {
+                $message = new Message();
+                $message->content = $request->input('content');
+                $message->commission_id = $commissionId;
+                $message->user_id = Auth::id();
+                $message->save();
+        
+                // Handle attachments
+                if ($request->hasFile('attachments')) {
+                    foreach ($request->file('attachments') as $file) {
+                        $path = $file->store('attachments', 'public');
+                        $attachment = new Attachment();
+                        $attachment->file_name = $file->getClientOriginalName();
+                        $attachment->file_path = $path;
+                        $attachment->file_size = $file->getSize(); // Get file size
+                        $attachment->file_type = $file->getMimeType(); // Get file type
+                        $attachment->uploaded_by = Auth::id();
+                        $attachment->save();
+        
+                        $message->attachments()->attach($attachment->id);
+                    }
+                }
+        
+                $message->load('user', 'attachments');
+        
+                return response()->json([
+                    'success' => true,
+                    'message' => $message,
+                    'attachments' => $message->attachments
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'error' => $e->getMessage()
+                ], 500);
             }
         }
-    
-        $message->load('user', 'attachments');
-    
-        return response()->json([
-            'success' => true,
-            'message' => $message,
-            'attachments' => $message->attachments
-        ]);
-    }
 public function showInbox()
 {
     $user = Auth::user();
@@ -155,6 +167,21 @@ public function getInboxContent()
     $commissions = Commission::where('user_id', $user->id)->whereIn('status', ['pending', 'processing', 'cancelled'])->get();
 
     return view('components.inbox-content', compact('commissions'))->render();
+}
+
+public function markMessagesAsRead($commissionId)
+{
+    $userId = Auth::id();
+
+    // Update the is_read status of the messages from the admin
+    Message::where('commission_id', $commissionId)
+        ->whereHas('user', function ($query) {
+            $query->where('is_admin', true);
+        })
+        ->where('is_read', false)
+        ->update(['is_read' => 1]);
+
+    return response()->json(['success' => true]);
 }
 
 }

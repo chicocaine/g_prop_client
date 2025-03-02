@@ -7,23 +7,33 @@
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
                             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                                 @foreach ($messages as $message)
-                                    <tr class="bg-white hover:bg-gray-100 dark:bg-neutral-900 shadow-sm mb-[1px] dark:hover:bg-neutral-800">
+                                    <tr class="bg-white hover:bg-gray-100 dark:bg-neutral-900 shadow-sm mb-[1px] dark:hover:bg-neutral-800 {{ $message->is_read ? 'read' : 'unread' }}">
                                         <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900 dark:text-neutral-200" style="word-break: break-word;">
+                                        
                                             @if ($message->user->is_admin)
-                                                <p class="font-bold">Admin:</p>
+                                                <div class="flex justify-start gap-x-2">
+                                                <p class="font-bold">Admin: </p>
+                                                <p class="font-thin text-[12px]">{{$message->created_at}}</p>
+                                                <p class="font-thin text-[12px] status">{{ $message->is_read ? '(Seen)' : '(Unread)' }}</p>
+                                                </div>
+                                                
                                                 {!! $message->content !!}
                                             @else
-                                            <div class="flex justify-end">
-                                                <p class="font-bold">{{ $message->user->first_name }} {{ $message->user->last_name }}:</p>
+                                            <div class="flex justify-end gap-x-2">
+                                                <p class="font-bold">{{ $message->user->first_name }} {{ $message->user->last_name }} (You):</p>
+                                                <p class="font-thin text-[12px]">{{$message->created_at}}</p>
+                                                @if(!$message->is_read)
+                                                    <p class="font-thin text-[12px]">(Unread)</p>
+                                                @endif
                                             </div>
                                             <div class="flex justify-end">
                                                 {!! $message->content !!}
                                             </div>
                                             @endif
                                             @if ($message->attachments->isNotEmpty())
-                                                <div class="mt-2 flex justify-end">
+                                                <div class="mt-2 flex flex-col {{ $message->user->is_admin ? 'items-start' : 'items-end' }} ">
                                                     @foreach ($message->attachments as $attachment)
-                                                        <a href="{{ asset('storage/' . $attachment->file_path) }}" target="_blank" class="text-blue-500 hover:underline">{{ $attachment->file_name }}</a>
+                                                        <a href="{{ asset('storage/' . $attachment->file_path) }}" target="_blank" class="text-blue-500 hover:underline">{{ $attachment->file_name }}  ({{$attachment->file_size}})</a>
                                                     @endforeach
                                                 </div>
                                             @endif
@@ -40,11 +50,12 @@
 
     <div class="bg-[#D3D9E1] h-[159px] rounded-[18px]">
         <div class="relative">
+            <div id="attached-files" class="mt-2 px-4"></div> <!-- Container for displaying attached files -->
             <textarea id="message-content" class="h-[159px] p-4 pb-12 block w-full bg-gray-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Enter message"></textarea>
             <div class="absolute bottom-px inset-x-px p-2 rounded-b-lg bg-gray-100 dark:bg-neutral-800">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center">
-                        <input type="file" id="attachment" class="hidden" multiple enctype="multipart/form-data" />
+                        <input type="file" id="attachment" class="hidden" multiple onchange="displayAttachedFiles()">
                         <button type="button" onclick="document.getElementById('attachment').click()" class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05L12.25 20.24a6 6 0 0 1-8.49-8.49L12.33 3.18A4 4 0 1 1 18 8.84L9.41 17.41a2 2 0 0 1-2.83-2.83L15.07 6.18"/></svg>
                         </button>

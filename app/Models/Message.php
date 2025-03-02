@@ -14,7 +14,8 @@ class Message extends Model
         'content',
         'commission_id',
         'user_id',
-        'created_at'
+        'created_at',
+        'is_read'
     ];
 
     public function commission()

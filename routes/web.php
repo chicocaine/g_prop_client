@@ -79,5 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/commissions/{commissionId}/messages', [CommissionController::class, 'getMessages'])->name('commissions.messages');
     Route::post('/commissions/{commissionId}/messages', [CommissionController::class, 'storeMessage'])->name('commissions.storeMessage');
     Route::post('/commissions', [CommissionController::class, 'store'])->name('commissions.store');
+    Route::post('/commissions/{commission}/mark-read', [CommissionController::class, 'markMessagesAsRead']);
+
 
 });
