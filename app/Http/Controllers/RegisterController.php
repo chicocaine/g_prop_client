@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
 
 class RegisterController extends Controller
 {
@@ -29,10 +29,11 @@ class RegisterController extends Controller
             'default_address' => 'nullable|string|max:255',
             'password' => 'required|string|min:8|confirmed',
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
-            
         }
+
         // Create a new user
         $user = User::create([
             'first_name' => $request->first_name,
@@ -43,10 +44,15 @@ class RegisterController extends Controller
             'default_address' => $request->default_address,
         ]);
 
+        // Log the registration
+        Log::create([
+            'description' => "New user registered: {$user->first_name} {$user->last_name} ({$user->email})",
+            'type' => 'user',
+        ]);
 
         // Log the user in
         Auth::login($user);
-    
+
         // Redirect to a desired location, e.g., home page
         return redirect()->route('home')->with('success', 'Registration successful!');
     }

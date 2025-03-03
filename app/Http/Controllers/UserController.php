@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +44,12 @@ class UserController extends Controller
         }
 
         $user->save();
+
+        // Log the profile update
+        Log::create([
+            'description' => "User profile updated: {$user->first_name} {$user->last_name} ({$user->email})",
+            'type' => 'user',
+        ]);
 
         return redirect()->back()->with('success', 'User details updated successfully!');
     }
