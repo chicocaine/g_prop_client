@@ -86,7 +86,7 @@ public function showInbox()
 {
     $user = Auth::user();
     $commissions = Commission::where('user_id', $user->id)
-        ->whereIn('status', ['pending', 'processing','cancelled'])
+        ->whereIn('status', ['pending', 'processing','cancelled','completed'])
         ->get();
 
     $faqs = Faq::all();

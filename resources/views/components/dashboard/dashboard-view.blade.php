@@ -30,6 +30,12 @@
                         Pending 
                     </div>
                 </a>
+                <a href="{{ route('dashboard', ['status' => 'cancelled']) }}">
+                    <div class="flex items-center gap-x-2">
+                        <img src="cancelled.svg" alt="Cancelled Logo" width="16px" height="16px">
+                        Cancelled
+                    </div>
+                </a>
             </div>
         </div>
     </div>
