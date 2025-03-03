@@ -18,9 +18,9 @@
                         Completed
                     </div>
                 </a>
-                <a href="{{ route('dashboard', ['status' => 'processing']) }}">
+                <a href="{{ route('dashboard', ['status' => 'active']) }}">
                     <div class="flex items-center gap-x-2">
-                        <img src="processing.svg" alt="Processing Logo" width="16px" height="16px">
+                        <img src="active.svg" alt="Active Logo" width="16px" height="16px">
                         Active
                     </div>
                 </a>
