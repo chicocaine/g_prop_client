@@ -11,6 +11,7 @@ class Log extends Model
     use HasFactory;
 
     protected $fillable = [
-        'description'
+        'description',
+        'type'
     ];
 }

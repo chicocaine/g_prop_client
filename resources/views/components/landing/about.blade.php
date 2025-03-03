@@ -2,7 +2,7 @@
 <div class="flex flex-col bg-white my-10">
 
 <div class="flex justify-center text-4xl font-semibold pt-16">
-    <h1 class="font-medium text-black text-2xl sm:text-4xl dark:text-white">
+    <h1 class="font-medium text-black text-2xl sm:text-4xl">
     About Us
     </h1>
     </div>

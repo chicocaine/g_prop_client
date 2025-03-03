@@ -17,7 +17,8 @@ class LogFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => fake()->sentence()
+            'description' => fake()->sentence(),
+            'type' => fake()->randomElement(['commission', 'action', 'user', 'employee']),
         ];
     }
 }

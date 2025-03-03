@@ -137,6 +137,8 @@ public function store(Request $request)
     $message->content = $request->input('question');
     $message->save();
 
+    
+
     return response()->json([
         'success' => true,
         'commission' => $commission
