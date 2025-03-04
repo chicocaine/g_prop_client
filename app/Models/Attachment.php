@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
+
 
 class Attachment extends Model
 {
     /** @use HasFactory<\Database\Factories\AttachementFactory> */
     use HasFactory;
 
-    protected $table = 'attachment_files';
+    protected $table = 'attachments';
 
     protected $fillable = [
         'file_name',
@@ -33,5 +35,10 @@ class Attachment extends Model
     public function action()
     {
         return $this->belongsToMany(Action::class, 'action_attachment', 'attachment_id', 'action_id')->withTimestamps();
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('attachments');
     }
 }

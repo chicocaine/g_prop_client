@@ -45,7 +45,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('attachment_files', function (Blueprint $table) {
+        Schema::create('attachments', function (Blueprint $table) {
             $table->id();
             $table->string('file_name');
             $table->foreignIdFor(\App\Models\User::class, 'uploaded_by')->constrained();

@@ -1,5 +1,5 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script> 
-<x-nav-link />
+<x-user-details-header/>
 
 <body class="bg-white pt-10">
     <div class="container mx-auto my-12 mt-40 p-5 bg-white rounded-lg flex flex-col items-center">

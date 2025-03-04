@@ -5,17 +5,14 @@
     <!-- Logo -->
     <div class="flex-shrink-0">
       <a href="/" class="text-xl font-bold">
-      <img src="logo.svg" alt="LOGO" width="80px" height="80px">
+        <img src="{{ asset('logo.svg') }}" alt="LOGO" width="80px" height="80px">
       </a>
     </div>
     <!-- End Logo -->
     
     <!-- Collapse -->
     <div id="navbar-collapse" class="hs-collapse hidden md:flex md:items-center md:space-x-7">
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/#hero">Home</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/#about">About</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/#services-products">Services & Products</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/#contact">Contact</a>
+     
       
       @auth
         <div x-data="{ open: false }" class="relative">

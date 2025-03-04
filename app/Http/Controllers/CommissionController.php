@@ -54,7 +54,7 @@ class CommissionController extends Controller
             // Handle attachments
             if ($request->hasFile('attachments')) {
                 foreach ($request->file('attachments') as $file) {
-                    $path = $file->store('attachments', 'public');
+                    $path = $file->store('storage/attachments', 'public');
                     $attachment = new Attachment();
                     $attachment->file_name = $file->getClientOriginalName();
                     $attachment->file_path = $path;
