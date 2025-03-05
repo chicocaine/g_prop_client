@@ -1,4 +1,4 @@
-\<div class="flex">
+<div class="flex">
   <div class="ml-8 mr-20 px-4 sm:pl-6 w-[525px]">
     <div class="flex flex-col">
       <div class="-m-1.5">
