@@ -23,17 +23,10 @@ function showMessages(commissionId) {
     fetch(`/commissions/${commissionId}/messages`)
         .then(response => response.json())
         .then(data => {
+            console.log('Fetched messages:', data); // Log the result
             const messagesContainer = document.getElementById('messages-container');
             messagesContainer.setAttribute('data-commission-id', commissionId);
             messagesContainer.innerHTML = data.html;
-
-            // Set the last message ID
-            const lastMessage = data.messages && data.messages.length > 0 ? data.messages[data.messages.length - 1] : null;
-            if (lastMessage) {
-                messagesContainer.setAttribute('data-last-message-id', lastMessage.id);
-            } else {
-                messagesContainer.removeAttribute('data-last-message-id');
-            }
 
             // Enable "Enter" to send messages
             const messageContent = document.getElementById('message-content');
@@ -79,9 +72,11 @@ function showMessages(commissionId) {
                 }
             })
             .catch(error => console.error("❌ Fetch error:", error));
-        });
+        })
+        .catch(error => console.error("❌ Fetch error:", error));
 }
-        function sendMessage() {
+
+    function sendMessage() {
         console.log("🔵 sendMessage() function called.");
     
         const messagesContainer = document.getElementById('messages-container');
@@ -212,6 +207,33 @@ function displayAttachedFiles() {
         attachedFilesContainer.appendChild(fileElement);
     }
 }
+function pollMessages() {
+    const messagesContainer = document.getElementById('messages-container');
+    const commissionId = messagesContainer.getAttribute('data-commission-id');
+
+    if (!commissionId) {
+        console.error('No commission ID');
+        return;
+    }
+
+    fetch(`/commissions/${commissionId}/latest-messages`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched latest messages:', data); // Log the result
+            if (data.html) {
+                document.getElementById('messages-tbody').insertAdjacentHTML('beforeend', data.html);
+            }
+        })
+        .catch(error => console.error('Error fetching latest messages:', error));
+}
+
+setInterval(pollMessages, 5000);
+
 </script>
 
 <style>

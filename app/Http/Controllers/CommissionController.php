@@ -34,7 +34,7 @@ class CommissionController extends Controller
             ->with(['user', 'attachments']) // Load attachments
             ->get();
         $html = view('components.messages', compact('messages', 'commissionId'))->render();
-    
+
         return response()->json(['html' => $html]);
     }
 
@@ -43,14 +43,14 @@ class CommissionController extends Controller
         $request->validate([
             'attachments.*' => 'file|max:10240' // Validate each attachment (max size: 10MB)
         ]);
-    
+
         try {
             $message = new Message();
             $message->content = $request->input('content');
             $message->commission_id = $commissionId;
             $message->user_id = Auth::id();
             $message->save();
-    
+
             // Handle attachments
             if ($request->hasFile('attachments')) {
                 foreach ($request->file('attachments') as $file) {
@@ -62,13 +62,13 @@ class CommissionController extends Controller
                     $attachment->file_type = $file->getMimeType(); // Get file type
                     $attachment->uploaded_by = Auth::id();
                     $attachment->save();
-    
+
                     $message->attachments()->attach($attachment->id);
                 }
             }
-    
+
             $message->load('user', 'attachments');
-    
+
             return response()->json([
                 'success' => true,
                 'message' => $message,
@@ -86,7 +86,7 @@ class CommissionController extends Controller
     {
         $user = Auth::user();
         $commissions = Commission::where('user_id', $user->id)
-            ->whereIn('status', ['pending', 'processing','cancelled','completed'])
+            ->whereIn('status', ['pending', 'processing', 'cancelled', 'completed'])
             ->get();
 
         $faqs = Faq::all();
@@ -183,5 +183,25 @@ class CommissionController extends Controller
             ->update(['is_read' => 1]);
 
         return response()->json(['success' => true]);
+    }
+
+        public function getLatestMessages(Request $request, $commissionId)
+    {
+        try {
+            $latestMessage = Message::where('commission_id', $commissionId)
+                ->with(['user', 'attachments'])
+                ->latest()
+                ->first();
+    
+            $html = '';
+            if ($latestMessage) {
+                $html = view('components.message-row', ['message' => $latestMessage])->render();
+            }
+    
+            return response()->json(['html' => $html, 'latestMessage' => $latestMessage]);
+        } catch (\Exception $e) {
+            \Log::error('Error fetching latest messages: ' . $e->getMessage());
+            return response()->json(['error' => 'Error fetching latest messages'], 500);
+        }
     }
 }
