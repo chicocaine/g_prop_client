@@ -19,61 +19,68 @@
 </div>
 
 <script>
-    function showMessages(commissionId) {
-      fetch(`/commissions/${commissionId}/messages`)
-          .then(response => response.json())
-          .then(data => {
-              const messagesContainer = document.getElementById('messages-container');
-              messagesContainer.setAttribute('data-commission-id', commissionId);
-              messagesContainer.innerHTML = data.html;
-  
-              // Enable "Enter" to send messages
-              const messageContent = document.getElementById('message-content');
-              if (messageContent) {
-                  messageContent.addEventListener('keydown', function (e) {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                          e.preventDefault();
-                          sendMessage();
-                      }
-                  });
-              }
-  
-              // Auto-scroll to the latest message
-              setTimeout(() => {
-                  const messagesDiv = messagesContainer.querySelector('div.overflow-y-auto');
-                  if (messagesDiv) {
-                      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                  }
-              }, 100);
-  
-              // Mark messages as read
-              fetch(`/commissions/${commissionId}/mark-read`, {
-                  method: 'POST',
-                  headers: {
-                      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                  }
-              })
-              .then(response => {
-                  if (response.ok) {
-                      console.log("✅ Messages marked as read successfully.");
-                      // Update the UI to reflect the read status
-                      const unreadMessages = messagesContainer.querySelectorAll('.unread');
-                      unreadMessages.forEach(message => {
-                          message.classList.remove('unread');
-                          message.classList.add('read');
-                          const statusElement = message.querySelector('.status');
-                          if (statusElement) {
-                              statusElement.textContent = '(Seen)';
-                          }
-                      });
-                  } else {
-                      console.error("❌ Failed to mark messages as read.");
-                  }
-              })
-              .catch(error => console.error("❌ Fetch error:", error));
-          });
-  }
+function showMessages(commissionId) {
+    fetch(`/commissions/${commissionId}/messages`)
+        .then(response => response.json())
+        .then(data => {
+            const messagesContainer = document.getElementById('messages-container');
+            messagesContainer.setAttribute('data-commission-id', commissionId);
+            messagesContainer.innerHTML = data.html;
 
+            // Set the last message ID
+            const lastMessage = data.messages && data.messages.length > 0 ? data.messages[data.messages.length - 1] : null;
+            if (lastMessage) {
+                messagesContainer.setAttribute('data-last-message-id', lastMessage.id);
+            } else {
+                messagesContainer.removeAttribute('data-last-message-id');
+            }
+
+            // Enable "Enter" to send messages
+            const messageContent = document.getElementById('message-content');
+            if (messageContent) {
+                messageContent.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+            }
+
+            // Set scroll position to the bottom after the next tick
+            setTimeout(() => {
+                const messagesDiv = messagesContainer.querySelector('div.overflow-y-auto');
+                if (messagesDiv) {
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }
+            }, 0);
+
+            // Mark messages as read
+            fetch(`/commissions/${commissionId}/mark-read`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("✅ Messages marked as read successfully.");
+                    // Update the UI to reflect the read status
+                    const unreadMessages = messagesContainer.querySelectorAll('.unread');
+                    unreadMessages.forEach(message => {
+                        message.classList.remove('unread');
+                        message.classList.add('read');
+                        const statusElement = message.querySelector('.status');
+                        if (statusElement) {
+                            statusElement.textContent = '(Seen)';
+                        }
+                    });
+                } else {
+                    console.error("❌ Failed to mark messages as read.");
+                }
+            })
+            .catch(error => console.error("❌ Fetch error:", error));
+        });
+}
         function sendMessage() {
         console.log("🔵 sendMessage() function called.");
     

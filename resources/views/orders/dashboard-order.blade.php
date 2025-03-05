@@ -28,8 +28,10 @@
     </div>
     <div class="flex-1 w-[1080px]">
         @if($view === 'inbox')
+            <p class="text-[22px] text-[#666] ml-16 mb-4">Proposed Commission</p>
             <x-inbox :commissions="$commissions"/>
         @elseif($view === 'archive')
+            <p class="text-[22px] text-[#666] ml-16 mb-4">Completed Commission</p>
             <x-archive :commissions="$commissions"/>
         @endif
     </div>
