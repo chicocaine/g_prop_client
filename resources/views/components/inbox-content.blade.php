@@ -10,7 +10,9 @@
                 </div>
               @else
               @foreach ($commissions as $commission)
-                <tr class="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 cursor-pointer" onclick="showMessages({{ $commission->id }})">
+                <tr class="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 cursor-pointer" 
+                    data-commission-id="{{ $commission->id }}"
+                    onclick="showMessages({{ $commission->id }})">
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-neutral-200">
                     {{ $commission->details }}
                   </td>

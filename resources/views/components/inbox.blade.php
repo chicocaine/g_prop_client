@@ -20,6 +20,44 @@
 
 <script>
 let lastMessageId = 0;
+let pendingCommissionSelection = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check for commission parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const commissionId = urlParams.get('commission');
+    
+    if (commissionId) {
+        // Store the ID to select after rows are loaded
+        pendingCommissionSelection = commissionId;
+        
+        // Try to find it now (it might already be loaded)
+        trySelectCommission(commissionId);
+    }
+});
+
+// Function to try selecting a commission
+function trySelectCommission(commissionId) {
+    const commissionRow = document.querySelector(`tr[data-commission-id="${commissionId}"]`);
+    
+    if (commissionRow) {
+        // Found it! Simulate a click
+        commissionRow.click();
+        
+        // Add a visual indicator to highlight the selected commission
+        commissionRow.classList.add('bg-blue-50', 'dark:bg-blue-900');
+        
+        // Scroll the commission into view if needed
+        commissionRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Clear the pending selection since we've handled it
+        pendingCommissionSelection = null;
+        
+        return true;
+    }
+    
+    return false;
+}
 
 function showMessages(commissionId) {
     fetch(`/commissions/${commissionId}/messages`)
@@ -83,6 +121,32 @@ function showMessages(commissionId) {
         })
         .catch(error => console.error("❌ Fetch error:", error));
 }
+
+// Add this: A mutation observer to watch for dynamically added commission rows
+function setupCommissionRowsObserver() {
+    const targetNode = document.getElementById('inbox-container');
+    if (!targetNode) return;
+    
+    const config = { childList: true, subtree: true };
+    
+    const callback = function(mutationsList, observer) {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0 && pendingCommissionSelection) {
+                // New elements were added, try selecting our commission again
+                if (trySelectCommission(pendingCommissionSelection)) {
+                    // Success! No need to keep watching
+                    observer.disconnect();
+                }
+            }
+        }
+    };
+    
+    const observer = new MutationObserver(callback);
+    observer.observe(targetNode, config);
+}
+
+// Start watching for dynamically added rows as soon as possible
+document.addEventListener('DOMContentLoaded', setupCommissionRowsObserver);
 
 function pollMessages() {
     const messagesContainer = document.getElementById('messages-container');
