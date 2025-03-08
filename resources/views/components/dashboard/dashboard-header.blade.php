@@ -118,8 +118,19 @@ function searchInbox(term) {
 }
 
 function searchArchive(term) {
-    // Similar to inbox search but for archive content
-    // Implement based on your archive structure
+    if (!term) {
+        // If search term is empty, show all archive items
+        document.querySelectorAll('.bg-white.border.border-gray-200.rounded-xl table tbody tr').forEach(row => {
+            row.style.display = '';
+        });
+        return;
+    }
+    
+    // Filter the visible rows in the archive
+    document.querySelectorAll('.bg-white.border.border-gray-200.rounded-xl table tbody tr').forEach(row => {
+        const content = row.textContent.toLowerCase();
+        row.style.display = content.includes(term.toLowerCase()) ? '' : 'none';
+    });
 }
 
 function searchDashboard(term) {

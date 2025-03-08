@@ -116,11 +116,47 @@
     }
     
     function updateArchiveWithResults(results) {
-        // Similar to updateInboxWithResults but for archive content
+        const archiveContainer = document.getElementById('archive-tbody');
+        if (!archiveContainer) return;
+        
+        if (results.html) {
+            archiveContainer.innerHTML = results.html;
+        } else if (results.commissions) {
+            // If no HTML is returned but commissions data is available
+            if (results.commissions.length > 0) {
+                let html = '';
+                results.commissions.forEach(commission => {
+                    html += `
+                        <tr class="archive-item bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 cursor-pointer" onclick="showMessages(${commission.id})">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-neutral-200">
+                                <img src="${commission.status}.svg" alt="${commission.status.charAt(0).toUpperCase() + commission.status.slice(1)} Logo" width="16px" height="16px">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-neutral-200">
+                                ${commission.status}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-neutral-200">
+                                ${commission.details}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-400">
+                                ${commission.set_price ? commission.set_price.substring(0, 50) : ''}
+                            </td>
+                        </tr>
+                    `;
+                });
+                archiveContainer.innerHTML = html;
+            } else {
+                archiveContainer.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-6 py-4">
+                            <div class="flex flex-col items-center justify-center align-center h-[200px]">
+                                <p class="text-gray-500 dark:text-neutral-400 font-bold">No matching commissions found.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
     }
-    
-    // Other existing scripts...
-
     function openFaqModal() {
         document.getElementById('faqModal').classList.remove('hidden');
     }
