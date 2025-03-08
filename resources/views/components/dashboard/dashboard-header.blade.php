@@ -9,18 +9,17 @@
     <p>COMMISIONS</p>
   </div>
 
-  <form class="w-1/2 mx-[32px] h-[46px]">   
-    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+  <div class="w-1/2 mx-[32px] h-[46px]">   
+    <label for="global-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     <div class="relative">
       <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
         </svg>
       </div>
-      <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-[168px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Commision" required />
-      {{-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button> --}}
+      <input type="search" id="global-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-[168px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Commission" required />
     </div>
-  </form>
+  </div>
 
   <div class="flex justify-end mr-32px w-1/6">
     @auth
@@ -40,3 +39,104 @@
     @endauth
   </div>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('global-search');
+    if (!searchInput) return;
+    
+    // Get the current page type
+    const currentPage = document.body.dataset.page || '';
+    
+    searchInput.addEventListener('input', debounce(function(e) {
+        const searchTerm = e.target.value.trim();
+        
+        // Different search handling based on the current page
+        switch(currentPage) {
+            case 'inbox':
+                searchInbox(searchTerm);
+                break;
+            case 'archive':
+                searchArchive(searchTerm);
+                break;
+            case 'dashboard':
+                searchDashboard(searchTerm);
+                break;
+            default:
+                // Generic search across all content if needed
+                performGlobalSearch(searchTerm);
+        }
+    }, 300));
+    
+    // Trigger search when Enter is pressed
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const searchTerm = e.target.value.trim();
+            performSearch(searchTerm, currentPage);
+        }
+    });
+});
+
+// Debounce function to prevent excessive API calls
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
+function performSearch(searchTerm, pageType) {
+    if (!searchTerm) return;
+    
+    // Make the search request
+    fetch(`/search?q=${encodeURIComponent(searchTerm)}&type=${pageType}`)
+        .then(response => response.json())
+        .then(data => {
+            // Dispatch a custom event that page-specific scripts can listen for
+            document.dispatchEvent(new CustomEvent('searchResults', {
+                detail: { results: data, type: pageType }
+            }));
+        })
+        .catch(error => console.error('Search error:', error));
+}
+
+function searchInbox(term) {
+    if (!term) {
+        // If search term is empty, show all commission threads
+        document.querySelectorAll('#inbox-container tr').forEach(row => {
+            row.style.display = '';
+        });
+        return;
+    }
+    
+    // Filter the visible rows in the inbox
+    document.querySelectorAll('#inbox-container tr').forEach(row => {
+        const content = row.textContent.toLowerCase();
+        row.style.display = content.includes(term.toLowerCase()) ? '' : 'none';
+    });
+}
+
+function searchArchive(term) {
+    // Similar to inbox search but for archive content
+    // Implement based on your archive structure
+}
+
+function searchDashboard(term) {
+    // Implement search functionality for dashboard content
+}
+
+function performGlobalSearch(term) {
+    // For searching across all possible content types
+    fetch(`/global-search?q=${encodeURIComponent(term)}`)
+        .then(response => response.json())
+        .then(data => {
+            // Handle the results based on the current page
+            const currentPage = document.body.dataset.page || '';
+            document.dispatchEvent(new CustomEvent('globalSearchResults', {
+                detail: { results: data, page: currentPage }
+            }));
+        })
+        .catch(error => console.error('Global search error:', error));
+}
+</script>

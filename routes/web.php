@@ -6,7 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SearchController;
 
 
 Route::get('/', [LoginController::class, 'index'])->name('home');
@@ -82,5 +82,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/commissions/{commission}/mark-read', [CommissionController::class, 'markMessagesAsRead']);
     Route::get('/commissions/{commissionId}/latest-messages', [CommissionController::class, 'getLatestMessages'])->name('commissions.latestMessages');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    Route::get('/global-search', [SearchController::class, 'globalSearch'])->name('global-search');
+});
 
 });

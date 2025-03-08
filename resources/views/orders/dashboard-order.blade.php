@@ -86,8 +86,41 @@
     </div>
 </div>
 </div>
-
 <script>
+    document.body.dataset.page = "{{ $view }}"; // 'inbox' or 'archive'
+    
+    // Listen for search events
+    document.addEventListener('searchResults', function(e) {
+        const { results, type } = e.detail;
+        
+        if (type === '{{ $view }}') {
+            // Update the view with search results
+            if (type === 'inbox') {
+                updateInboxWithResults(results);
+            } else if (type === 'archive') {
+                updateArchiveWithResults(results);
+            }
+        }
+    });
+    
+    function updateInboxWithResults(results) {
+        const inboxContainer = document.getElementById('inbox-container');
+        if (!inboxContainer) return;
+        
+        if (results.html) {
+            inboxContainer.innerHTML = results.html;
+        } else if (results.commissions) {
+            // Alternative approach if not returning HTML directly
+            // Filter the existing commissions
+        }
+    }
+    
+    function updateArchiveWithResults(results) {
+        // Similar to updateInboxWithResults but for archive content
+    }
+    
+    // Other existing scripts...
+
     function openFaqModal() {
         document.getElementById('faqModal').classList.remove('hidden');
     }
