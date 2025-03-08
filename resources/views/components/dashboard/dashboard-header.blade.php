@@ -134,7 +134,19 @@ function searchArchive(term) {
 }
 
 function searchDashboard(term) {
-    // Implement search functionality for dashboard content
+    if (!term) {
+        // If search term is empty, show all dashboard table rows
+        document.querySelectorAll('#dashboard-tbody .dashboard-item').forEach(row => {
+            row.style.display = '';
+        });
+        return;
+    }
+    
+    // Filter the visible rows in the dashboard table
+    document.querySelectorAll('#dashboard-tbody .dashboard-item').forEach(row => {
+        const content = row.textContent.toLowerCase();
+        row.style.display = content.includes(term.toLowerCase()) ? '' : 'none';
+    });
 }
 
 function performGlobalSearch(term) {

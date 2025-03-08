@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Commission;
-use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class SearchController extends Controller
 {
@@ -33,9 +33,10 @@ class SearchController extends Controller
     private function searchInbox($query, $user)
     {
         $commissions = Commission::where('user_id', $user->id)
-            ->whereIn('status', ['pending', 'processing', 'cancelled'])
+            ->whereIn('status', ['pending', 'processing', 'active'])
             ->where(function ($q) use ($query) {
                 $q->where('details', 'like', "%{$query}%")
+                  ->orWhere('subject', 'like', "%{$query}%")
                   ->orWhereHas('messages', function($q) use ($query) {
                       $q->where('content', 'like', "%{$query}%");
                   });
@@ -56,13 +57,29 @@ class SearchController extends Controller
             ->where('status', 'completed')
             ->where(function ($q) use ($query) {
                 $q->where('details', 'like', "%{$query}%")
+                  ->orWhere('subject', 'like', "%{$query}%")
                   ->orWhereHas('messages', function($q) use ($query) {
                       $q->where('content', 'like', "%{$query}%");
                   });
             })
             ->get();
             
-        $html = view('components.archive-content', compact('commissions'))->render();
+        return response()->json([
+            'commissions' => $commissions
+        ]);
+    }
+    
+    private function searchDashboard($query, $user)
+    {
+        $commissions = Commission::where(function ($q) use ($query) {
+                $q->where('details', 'like', "%{$query}%")
+                  ->orWhere('subject', 'like', "%{$query}%")
+                  ->orWhere('id', 'like', "%{$query}%")
+                  ->orWhere('status', 'like', "%{$query}%");
+            })
+            ->get();
+            
+        $html = View::make('components.dashboard._search_results', compact('commissions'))->render();
         
         return response()->json([
             'commissions' => $commissions,
@@ -70,29 +87,20 @@ class SearchController extends Controller
         ]);
     }
     
-    private function searchDashboard($query, $user)
-    {
-        // Implement dashboard search logic
-        // Return appropriate data and HTML
-    }
-    
     private function globalSearch($query, $user)
     {
-        // Search across all relevant models
         $commissions = Commission::where('user_id', $user->id)
             ->where(function ($q) use ($query) {
                 $q->where('details', 'like', "%{$query}%")
+                  ->orWhere('subject', 'like', "%{$query}%")
                   ->orWhereHas('messages', function($q) use ($query) {
                       $q->where('content', 'like', "%{$query}%");
                   });
             })
             ->get();
             
-        // You can add more models to search as needed
-        
         return response()->json([
-            'commissions' => $commissions,
-            // Add other search results as needed
+            'commissions' => $commissions
         ]);
     }
 }
