@@ -1,4 +1,4 @@
-<section id="contact" class="max-h-screen mt-8 relative pt-10">
+<section id="contact" class="min-h-screen pt-10 flex justify-center items-center">
 
 <div class="flex flex-col bg-[#F8F9FA] mt-10 relative pb-10">
     <div class="flex justify-center text-4xl font-semibold pt-16">

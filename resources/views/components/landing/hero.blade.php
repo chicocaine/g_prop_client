@@ -1,6 +1,6 @@
-<section id="hero" class="max-h-screen max-w-screen mb-10 pt-20">
-    <div class="mt-22 ml-16 max-w-screen flex justify-between">
-        <div class="flex flex-col text-start max-w-1/2 pt-10">
+<section id="hero" class="max-h-screen max-w-8xl mb-10 pt-20 flex justify-center items-center mx-auto">
+    <div class="mt-20 min-h-screen max-w-full flex justify-between items-center space-x-5 scale-120">
+        <div class="flex flex-col text-start min-w-1/2 pt-10">
             <h1 class="max-w-md font-semibold text-white text-5xl md:text-6xl leading-tight md:leading-relaxed">
                 <span class="text-[#494946]">YOUR VISION OUR PRINT</span> 
             </h1>
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-[556px] h-[476px] mr-32 ">
+        <div class="w-[556px] h-[476px] flex items-center justify-center">
             <img src="hero-img.svg" alt="hero image" class="w-full h-full object-cover pb-20">
         </div>
     </div>

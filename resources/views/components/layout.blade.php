@@ -21,7 +21,7 @@
     {{ $slot }}
   </section> --}}
 
-  <main id="container">
+  <main id="container flex items-center justify-center">
     <x-landing.hero />
     <x-landing.about />
     <x-landing.services-products /> 
