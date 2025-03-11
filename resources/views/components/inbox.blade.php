@@ -1,20 +1,30 @@
+<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CSE-7/Final-Project/g_prop_client/resources/views/components/inbox.blade.php -->
 <div class="flex">
-  <div class="ml-8 mr-20 px-4 sm:pl-6 w-[525px]">
+  <!-- Left sidebar with conversations -->
+  <div class="ml-8 mr-4 w-[380px]">
     <div class="flex flex-col">
-      <div class="-m-1.5">
-        <div class="p-1.5 min-w-full inline-block align-middle" id="inbox-container">
-          @include('components.inbox-content', ['commissions' => $commissions])
-        </div>
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-lg font-semibold text-gray-800">Conversations</h2>
+      </div>
+      
+      <!-- Conversations list -->
+      <div class="h-[calc(100vh-140px)] overflow-y-auto pr-1 conversation-list" id="inbox-container">
+        @include('components.inbox-content', ['commissions' => $commissions])
       </div>
     </div>
   </div>
 
-  <div id="messages-container" class="w-[555px]">
-    <div class="flex flex-col items-center justify-center align-center w-full h-[763px] border border-gray-200 shadow-sm rounded-[12px] bg-white">
-      <div class="flex flex-col items-center justify-center text-center p-6">
-        <img src="load.svg" alt="No conversation selected" class="w-[100px] h-[100px] mb-4 opacity-70" />
-        <p class="mb-2 text-gray-500 font-bold text-lg">No Conversation Selected</p>
-        <p class="text-gray-400 max-w-xs">Please select a commission thread from the sidebar to view your messages</p>
+  <!-- Right side - message content -->
+  <div id="messages-container" class="flex-1 max-w-[700px]">
+    <div class="flex flex-col h-[calc(100vh-120px)] border border-gray-200 shadow-sm rounded-xl bg-white">
+      <div class="flex flex-col items-center justify-center h-full text-center">
+        <div class="rounded-full bg-blue-50 p-5 mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-medium text-gray-700 mb-2">No Conversation Selected</h3>
+        <p class="text-gray-500 max-w-xs">Please select a commission thread from the sidebar to view your messages</p>
       </div>
     </div>
   </div>

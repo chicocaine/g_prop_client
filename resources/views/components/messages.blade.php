@@ -50,9 +50,9 @@
     </div>
 
     <!-- Messages List -->
-    <div class="w-[500px] overflow-y-auto overflow-x-hidden flex-1 bg-gray-50 p-2">
+    <div class="w-full overflow-y-auto overflow-x-hidden flex-1 bg-gray-50 p-2">
         <div class="flex flex-col">
-            <div class="w-[500px]">
+            <div class="w-full">
                 <div class="min-w-full inline-block align-middle">
                     <div class="bg-transparent">
                         <table class="min-w-full">

@@ -15,18 +15,12 @@
             @if ($commissions->isEmpty())
               <!-- Empty State -->
               <div class="flex flex-col items-center justify-center py-16 px-4 h-[600px]">
-                <img src="{{ asset('empty-archive.svg') }}" alt="No archived commissions" class="w-40 h-40 mb-4 opacity-70" 
+                <img src="" alt="No archived commissions" class="w-40 h-40 mb-4 opacity-70" 
                      onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2NjY2NjYyIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTIxIDh2MTNINGExIDEgMCAwMS0xLTFWOGgxOHoiPjwvcGF0aD48cGF0aCBkPSJNMSAzaDIybTAgM0gyTTE1IDIxdi04bS02IDB2OCIvPjwvc3ZnPg==';">
                 <h3 class="text-xl font-semibold text-gray-700 mb-2">No Archived Commissions</h3>
                 <p class="text-gray-500 max-w-md text-center mb-6">
                   You don't have any completed or cancelled commissions yet.
                 </p>
-                <a href="{{ route('inbox') }}" class="inline-flex items-center gap-x-2 py-2.5 px-4 rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 transition-all text-sm font-semibold">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                  </svg>
-                  Create New Commission
-                </a>
               </div>
             @else
               <!-- Table with data -->
