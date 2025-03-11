@@ -57,7 +57,7 @@
 
         <div class="flex justify-center items-center ml-10">
           <a href="{{ route('register') }}">
-            <h1 class="mr-6 text-[#61BCF9] hover:text-blue-700 transition-colors">Sign Up</h1>
+            <h1 class="mr-6 text-[#FF0000] hover:text-red-700 transition-colors">Sign Up</h1>
           </a>
           <div>
             <h1>New Here?</h1>

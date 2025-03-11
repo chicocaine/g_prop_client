@@ -123,7 +123,7 @@
                         <h1>Already have an account?</h1>
                     </div>
                     <a href="{{ route('login') }}">
-                        <h1 class="mr-6 text-[#61BCF9] hover:text-blue-700 transition-colors">Log in here</h1> 
+                        <h1 class="mr-6 text-[#FF0000] hover:text-red-700 transition-colors">Log in here</h1> 
                     </a>
                 </div>
             </div>

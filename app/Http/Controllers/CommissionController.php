@@ -28,14 +28,21 @@ class CommissionController extends Controller
         return view('components.dashboard.dashboard-view', compact('commissions'));
     }
 
+
     public function getMessages($commissionId)
     {
+        $commission = Commission::findOrFail($commissionId);
+        
         $messages = Message::where('commission_id', $commissionId)
-            ->with(['user', 'attachments']) // Load attachments
+            ->with(['user', 'attachments'])
             ->get();
-        $html = view('components.messages', compact('messages', 'commissionId'))->render();
-
-        return response()->json(['html' => $html]);
+        
+        $html = view('components.messages', compact('messages', 'commissionId', 'commission'))->render();
+    
+        return response()->json([
+            'html' => $html,
+            'messages' => $messages
+        ]);
     }
 
     public function storeMessage(Request $request, $commissionId)
