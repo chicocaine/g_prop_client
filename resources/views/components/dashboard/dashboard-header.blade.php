@@ -10,21 +10,21 @@
   </div>
 
   <div class="w-1/2 mx-[32px] h-[46px]">   
-    <label for="global-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <label for="global-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
     <div class="relative">
       <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
         </svg>
       </div>
-      <input type="search" id="global-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-[168px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Commission" required />
+      <input type="search" id="global-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-[168px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Commission" required />
     </div>
   </div>
 
   <div class="flex justify-end mr-32px w-1/6">
     @auth
       <div x-data="{ open: false }" class="relative">
-        <button @click="open = !open" class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300 focus:outline-none">
+        <button @click="open = !open" class="text-black hover:text-gray-600  focus:outline-none">
           {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
         </button>
         <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-20">

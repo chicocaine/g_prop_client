@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="flex justify-between mt-22">
-    <div class="flex w-[325px] min-h-screen bg-white dark:bg-gray-800 justify-end align-center pr-[10px]">
+    <div class="flex w-[325px] min-h-screen bg-white  justify-end align-center pr-[10px]">
         <div class="flex flex-col">
         <a href="{{ route('dashboard') }}">
             <div class="flex justify-start items-center my-4 gap-4 px-4 w-[206px] h-[33px] rounded-[16px] bg-[#D3F3FD]">
@@ -71,20 +71,20 @@
                     const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
                     
                     html += `
-                        <tr class="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-neutral-200">
+                        <tr class="bg-white hover:bg-gray-50 ">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 ">
                                 <img src="${commission.status}.svg" alt="${commission.status.charAt(0).toUpperCase() + commission.status.slice(1)} Logo" width="16px" height="16px">
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-400">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 ">
                                 ${commission.id}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-400">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 ">
                                 ${commission.subject || ''}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-400">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 ">
                                 ${commission.details || ''}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-400">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 ">
                                 ${formattedDate}
                             </td>
                         </tr>
@@ -96,7 +96,7 @@
                     <tr>
                         <td colspan="5" class="px-6 py-4">
                             <div class="flex flex-col items-center justify-center align-center h-[200px]">
-                                <p class="text-gray-500 dark:text-neutral-400 font-bold">No matching commissions found.</p>
+                                <p class="text-gray-500  font-bold">No matching commissions found.</p>
                             </div>
                         </td>
                     </tr>

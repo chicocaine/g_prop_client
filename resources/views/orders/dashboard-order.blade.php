@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="flex justify-between mt-22">
-    <div class="flex w-[325px] min-h-screen bg-white dark:bg-gray-800 justify-end align-center pr-[10px]">
+    <div class="flex w-[325px] min-h-screen bg-white  justify-end align-center pr-[10px]">
         <div class="flex flex-col pr-4 w-[220px]">
             <button onclick="openFaqModal()" class="flex justify-start items-center my-4 gap-4 px-4 w-[156px] h-[60px] rounded-[16px] bg-[#D3F3FD]">
                 <img src="make-commission.svg" alt="All Commission Logo" width="18px" height="18px">
@@ -127,17 +127,17 @@
                 let html = '';
                 results.commissions.forEach(commission => {
                     html += `
-                        <tr class="archive-item bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 cursor-pointer" onclick="showMessages(${commission.id})">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-neutral-200">
+                        <tr class="archive-item bg-white hover:bg-gray-50  cursor-pointer" onclick="showMessages(${commission.id})">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 ">
                                 <img src="${commission.status}.svg" alt="${commission.status.charAt(0).toUpperCase() + commission.status.slice(1)} Logo" width="16px" height="16px">
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-neutral-200">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 ">
                                 ${commission.status}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-neutral-200">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 ">
                                 ${commission.details}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-400">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 ${commission.set_price ? commission.set_price.substring(0, 50) : ''}
                             </td>
                         </tr>
@@ -149,7 +149,7 @@
                     <tr>
                         <td colspan="4" class="px-6 py-4">
                             <div class="flex flex-col items-center justify-center align-center h-[200px]">
-                                <p class="text-gray-500 dark:text-neutral-400 font-bold">No matching commissions found.</p>
+                                <p class="text-gray-500 font-bold">No matching commissions found.</p>
                             </div>
                         </td>
                     </tr>

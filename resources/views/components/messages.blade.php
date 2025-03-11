@@ -1,11 +1,11 @@
-<div class="flex flex-col justify-between h-[750px] bg-white border border-gray-200 dark:bg-gray-800" data-commission-id="{{ $commissionId }}">
+<div class="flex flex-col justify-between h-[750px] bg-white border border-gray-200 " data-commission-id="{{ $commissionId }}">
     <div class="w-[500px] overflow-y-auto overflow-x-hidden">
         <div class="flex flex-col">
             <div class="w-[500px]">
                 <div class="min-w-full inline-block align-middle">
-                    <div class="bg-white border border-gray-200 shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-700">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                            <tbody class="divide-y divide-gray-200 dark:divide-neutral-700" id="messages-tbody">
+                    <div class="bg-white border border-gray-200 shadow-sm overflow-hidden ">
+                        <table class="min-w-full divide-y divide-gray-200 ">
+                            <tbody class="divide-y divide-gray-200 " id="messages-tbody">
                                 @foreach ($messages as $message)
                                     <x-message-row :message="$message"/>
                                 @endforeach
@@ -20,12 +20,12 @@
     <div class="bg-[#D3D9E1] h-[159px] rounded-[18px]">
         <div class="relative">
             <div id="attached-files" class="mt-2 px-4"></div> <!-- Container for displaying attached files -->
-            <textarea id="message-content" class="h-[159px] p-4 pb-12 block w-full bg-gray-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Enter message"></textarea>
-            <div class="absolute bottom-px inset-x-px p-2 rounded-b-lg bg-gray-100 dark:bg-neutral-800">
+            <textarea id="message-content" class="h-[159px] p-4 pb-12 block w-full bg-gray-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 " placeholder="Enter message"></textarea>
+            <div class="absolute bottom-px inset-x-px p-2 rounded-b-lg bg-gray-100 ">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center">
                         <input type="file" id="attachment" class="hidden" multiple onchange="displayAttachedFiles()">
-                        <button type="button" onclick="document.getElementById('attachment').click()" class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                        <button type="button" onclick="document.getElementById('attachment').click()" class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 ">
                             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05L12.25 20.24a6 6 0 0 1-8.49-8.49L12.33 3.18A4 4 0 1 1 18 8.84L9.41 17.41a2 2 0 0 1-2.83-2.83L15.07 6.18"/></svg>
                         </button>
                     </div>

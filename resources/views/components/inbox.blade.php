@@ -10,9 +10,9 @@
   </div>
 
   <div id="messages-container">
-    <div class="flex flex-col items-center justify-center align-center w-[555px] h-[763px] border border-gray-50 shadow-sm dark:border-neutral-700 rounded-[12px]">
+    <div class="flex flex-col items-center justify-center align-center w-[555px] h-[763px] border border-gray-50 shadow-sm  rounded-[12px]">
       <img src="load.svg" alt="No conversation selected" class="w-[77px] h-[77px]" />
-      <p class="my-8 text-gray-500 dark:text-neutral-400 font-bold">No Conversation Selected Yet.</p>
+      <p class="my-8 text-gray-500  font-bold">No Conversation Selected Yet.</p>
       <p>Please Select a Commission Thread</p>
     </div>
   </div>
@@ -45,7 +45,7 @@ function trySelectCommission(commissionId) {
         commissionRow.click();
         
         // Add a visual indicator to highlight the selected commission
-        commissionRow.classList.add('bg-blue-50', 'dark:bg-blue-900');
+        commissionRow.classList.add('bg-blue-50');
         
         // Scroll the commission into view if needed
         commissionRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -260,8 +260,8 @@ function sendMessage() {
             }
 
             messagesTable.innerHTML += `
-                <tr class="bg-white hover:bg-gray-50 dark:bg-neutral-900 shadow-sm mb-[1px] dark:hover:bg-neutral-800" data-message-id="${data.message.id}">
-                    <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900 dark:text-neutral-200" style="word-break: break-word;">
+                <tr class="bg-white hover:bg-gray-50 shadow-sm mb-[1px]" data-message-id="${data.message.id}">
+                    <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900" style="word-break: break-word;">
                         <p class="text-right font-bold">${data.message.user.first_name} ${data.message.user.last_name}:</p>
                         <p class="text-right">${formattedContent}</p>
                         <div class="flex justify-end gap-x-2">

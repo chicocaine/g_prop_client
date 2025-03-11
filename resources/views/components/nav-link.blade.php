@@ -12,14 +12,14 @@
     
     <!-- Collapse -->
     <div id="navbar-collapse" class="hs-collapse hidden md:flex md:items-center md:space-x-7">
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/#hero">Home</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/#about">About</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/#services-products">Services & Products</a>
-      <a class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="/#contact">Contact</a>
+      <a class="text-black hover:text-gray-600 " href="/#hero">Home</a>
+      <a class="text-black hover:text-gray-600 " href="/#about">About</a>
+      <a class="text-black hover:text-gray-600 " href="/#services-products">Services & Products</a>
+      <a class="text-black hover:text-gray-600 " href="/#contact">Contact</a>
       
       @auth
         <div x-data="{ open: false }" class="relative">
-          <button @click="open = !open" class="text-black hover:text-gray-600 dark:text-black dark:hover:text-neutral-300 focus:outline-none">
+          <button @click="open = !open" class="text-black hover:text-gray-600  focus:outline-none">
             {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
           </button>
           <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-20">
@@ -32,7 +32,7 @@
           </div>
         </div>
       @else
-        <a class="text-[#F66C73] hover:text-gray-600 dark:text-black dark:hover:text-neutral-300" href="{{ route('login') }}">Sign In</a>
+        <a class="text-[#F66C73] hover:text-gray-600 " href="{{ route('login') }}">Sign In</a>
       @endauth
 
     </div>

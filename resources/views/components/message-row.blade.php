@@ -1,5 +1,5 @@
-<tr class="bg-white hover:bg-gray-100 dark:bg-neutral-900 shadow-sm mb-[1px] dark:hover:bg-neutral-800 {{ $message->is_read ? 'read' : 'unread' }}" data-message-id="{{ $message->id }}">
-    <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900 dark:text-neutral-200" style="word-break: break-word;">
+<tr class="bg-white hover:bg-gray-100 shadow-sm mb-[1px]  {{ $message->is_read ? 'read' : 'unread' }}" data-message-id="{{ $message->id }}">
+    <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900 " style="word-break: break-word;">
         @if ($message->user->is_admin)
             <div class="flex justify-start gap-x-2">
                 <p class="font-bold">Admin: </p>
