@@ -50,17 +50,64 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to try selecting a commission
 function trySelectCommission(commissionId) {
-    const commissionRow = document.querySelector(`tr[data-commission-id="${commissionId}"]`);
+    console.log("🔍 Trying to find and select commission:", commissionId);
     
-    if (commissionRow) {
-        // Found it! Simulate a click
-        commissionRow.click();
+    // Try different possible selectors to find the commission element
+    let commissionElement = document.querySelector(`[data-commission-id="${commissionId}"]`);
+    
+    if (!commissionElement) {
+        console.log("⚠️ Commission element not found with primary selector, trying alternatives...");
         
-        // Add a visual indicator to highlight the selected commission
-        commissionRow.classList.add('bg-blue-50');
+        // Try other possible selectors
+        const possibleSelectors = [
+            `tr[data-commission-id="${commissionId}"]`,
+            `.conversation-item[data-commission-id="${commissionId}"]`,
+            `div[data-commission-id="${commissionId}"]`,
+            `#inbox-content [data-commission-id="${commissionId}"]`
+        ];
+        
+        for (const selector of possibleSelectors) {
+            const element = document.querySelector(selector);
+            if (element) {
+                console.log("✅ Found commission element with selector:", selector);
+                commissionElement = element;
+                break;
+            }
+        }
+    }
+    
+    if (commissionElement) {
+        console.log("✅ Commission element found, triggering click:", commissionElement);
+        
+        // Some elements might have their own click handlers - trigger those directly
+        if (typeof commissionElement.onclick === 'function') {
+            commissionElement.onclick();
+        } else {
+            // Find if there's an onclick attribute as a string
+            const onclickAttr = commissionElement.getAttribute('onclick');
+            if (onclickAttr && onclickAttr.includes('showMessages')) {
+                // Extract and execute the showMessages part
+                const match = onclickAttr.match(/showMessages\(([^)]+)\)/);
+                if (match && match[1]) {
+                    console.log("🔄 Executing showMessages from onclick attribute");
+                    showMessages(commissionId);
+                } else {
+                    // Fallback to click event
+                    commissionElement.click();
+                }
+            } else {
+                // Fallback to click event
+                commissionElement.click();
+            }
+        }
+        
+        // Add visual indicator to highlight the selected commission
+        const allItems = document.querySelectorAll('[data-commission-id]');
+        allItems.forEach(item => item.classList.remove('bg-blue-50'));
+        commissionElement.classList.add('bg-blue-50');
         
         // Scroll the commission into view if needed
-        commissionRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        commissionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // Clear the pending selection since we've handled it
         pendingCommissionSelection = null;
@@ -68,8 +115,51 @@ function trySelectCommission(commissionId) {
         return true;
     }
     
+    console.log("❌ Commission element not found with any selector");
     return false;
 }
+
+// Add this function to attempt finding the commission repeatedly in case it loads later
+function findCommissionWithRetry(commissionId, maxAttempts = 10) {
+    let attempts = 0;
+    
+    function attemptFind() {
+        if (attempts >= maxAttempts) {
+            console.log(`⚠️ Max attempts (${maxAttempts}) reached. Could not find commission ${commissionId}.`);
+            return;
+        }
+        
+        attempts++;
+        console.log(`🔄 Attempt ${attempts}/${maxAttempts} to find commission ${commissionId}...`);
+        
+        if (!trySelectCommission(commissionId)) {
+            // Wait a bit and try again
+            setTimeout(attemptFind, 500);
+        }
+    }
+    
+    // Start the first attempt
+    attemptFind();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check for commission parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const commissionId = urlParams.get('commission');
+    
+    if (commissionId) {
+        console.log("🔵 Commission ID found in URL:", commissionId);
+        // Store the ID to select after rows are loaded
+        pendingCommissionSelection = commissionId;
+        
+        // Try to find it now (it might already be loaded)
+        if (!trySelectCommission(commissionId)) {
+            console.log("⏳ Commission not found immediately, will retry with delay...");
+            // If not found immediately, try with a delay to allow for any AJAX loading
+            findCommissionWithRetry(commissionId);
+        }
+    }
+});
 
 function showMessages(commissionId) {
     // Add loading state
@@ -181,13 +271,17 @@ function showMessages(commissionId) {
 // Add this: A mutation observer to watch for dynamically added commission rows
 function setupCommissionRowsObserver() {
     const targetNode = document.getElementById('inbox-container');
-    if (!targetNode) return;
+    if (!targetNode) {
+        console.log("⚠️ Inbox container not found for mutation observer");
+        return;
+    }
     
     const config = { childList: true, subtree: true };
     
     const callback = function(mutationsList, observer) {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList' && mutation.addedNodes.length > 0 && pendingCommissionSelection) {
+                console.log("🔄 DOM mutation detected, checking for pending commission selection");
                 // New elements were added, try selecting our commission again
                 if (trySelectCommission(pendingCommissionSelection)) {
                     // Success! No need to keep watching
@@ -199,6 +293,7 @@ function setupCommissionRowsObserver() {
     
     const observer = new MutationObserver(callback);
     observer.observe(targetNode, config);
+    console.log("✅ Mutation observer set up for inbox container");
 }
 
 // Start watching for dynamically added rows as soon as possible

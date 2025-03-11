@@ -39,7 +39,6 @@
     @endauth
   </div>
 </nav>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('global-search');
@@ -48,11 +47,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the current page type
     const currentPage = document.body.dataset.page || '';
     
+    // Set the page type based on URL if not already set
+    if (!currentPage) {
+        const path = window.location.pathname;
+        if (path.includes('inbox')) document.body.dataset.page = 'inbox';
+        if (path.includes('archive')) document.body.dataset.page = 'archive';
+        if (path.includes('dashboard')) document.body.dataset.page = 'dashboard';
+    }
+    
     searchInput.addEventListener('input', debounce(function(e) {
         const searchTerm = e.target.value.trim();
         
         // Different search handling based on the current page
-        switch(currentPage) {
+        switch(document.body.dataset.page) {
             case 'inbox':
                 searchInbox(searchTerm);
                 break;
@@ -72,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             const searchTerm = e.target.value.trim();
-            performSearch(searchTerm, currentPage);
+            performSearch(searchTerm, document.body.dataset.page);
         }
     });
 });
@@ -104,49 +111,78 @@ function performSearch(searchTerm, pageType) {
 function searchInbox(term) {
     if (!term) {
         // If search term is empty, show all commission threads
-        document.querySelectorAll('#inbox-container tr').forEach(row => {
-            row.style.display = '';
+        document.querySelectorAll('#inbox-container [data-commission-id]').forEach(item => {
+            item.style.display = '';
         });
         return;
     }
     
-    // Filter the visible rows in the inbox
-    document.querySelectorAll('#inbox-container tr').forEach(row => {
-        const content = row.textContent.toLowerCase();
-        row.style.display = content.includes(term.toLowerCase()) ? '' : 'none';
+    // Find the right elements to search within
+    const searchContainer = document.querySelector('#inbox-container');
+    if (!searchContainer) return;
+    
+    // Look for any elements with data-commission-id attribute 
+    // (works with div, tr, or any other element)
+    const items = searchContainer.querySelectorAll('[data-commission-id]');
+    
+    // Filter the visible items in the inbox
+    items.forEach(item => {
+        const content = item.textContent.toLowerCase();
+        item.style.display = content.includes(term.toLowerCase()) ? '' : 'none';
     });
+    
+    console.log(`Searched inbox for "${term}" - found ${Array.from(items).filter(i => i.style.display !== 'none').length} matches`);
 }
 
 function searchArchive(term) {
     if (!term) {
         // If search term is empty, show all archive items
-        document.querySelectorAll('.bg-white.border.border-gray-200.rounded-xl table tbody tr').forEach(row => {
+        document.querySelectorAll('#archive-container [data-commission-id], #archive-tbody tr').forEach(row => {
             row.style.display = '';
         });
         return;
     }
     
+    // Try multiple selectors to find the archive items
+    let items = document.querySelectorAll('#archive-container [data-commission-id]');
+    if (items.length === 0) {
+        items = document.querySelectorAll('#archive-tbody tr');
+    }
+    if (items.length === 0) {
+        items = document.querySelectorAll('.archive-item');
+    }
+    
     // Filter the visible rows in the archive
-    document.querySelectorAll('.bg-white.border.border-gray-200.rounded-xl table tbody tr').forEach(row => {
-        const content = row.textContent.toLowerCase();
-        row.style.display = content.includes(term.toLowerCase()) ? '' : 'none';
+    items.forEach(item => {
+        const content = item.textContent.toLowerCase();
+        item.style.display = content.includes(term.toLowerCase()) ? '' : 'none';
     });
+    
+    console.log(`Searched archive for "${term}" - found ${Array.from(items).filter(i => i.style.display !== 'none').length} matches`);
 }
 
 function searchDashboard(term) {
     if (!term) {
         // If search term is empty, show all dashboard table rows
-        document.querySelectorAll('#dashboard-tbody .dashboard-item').forEach(row => {
+        document.querySelectorAll('#dashboard-tbody .dashboard-item, #dashboard-tbody tr').forEach(row => {
             row.style.display = '';
         });
         return;
     }
     
+    // Find dashboard items
+    let items = document.querySelectorAll('#dashboard-tbody .dashboard-item');
+    if (items.length === 0) {
+        items = document.querySelectorAll('#dashboard-tbody tr');
+    }
+    
     // Filter the visible rows in the dashboard table
-    document.querySelectorAll('#dashboard-tbody .dashboard-item').forEach(row => {
+    items.forEach(row => {
         const content = row.textContent.toLowerCase();
         row.style.display = content.includes(term.toLowerCase()) ? '' : 'none';
     });
+    
+    console.log(`Searched dashboard for "${term}" - found ${Array.from(items).filter(i => i.style.display !== 'none').length} matches`);
 }
 
 function performGlobalSearch(term) {
