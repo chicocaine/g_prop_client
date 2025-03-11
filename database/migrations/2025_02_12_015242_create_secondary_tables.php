@@ -40,7 +40,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Commission::class, 'commission_id')->constrained();
             $table->foreignIdFor(\App\Models\User::class, 'user_id')->constrained();
-            $table->longtext('content');
+            $table->longtext('content')->nullable();
             $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
