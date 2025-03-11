@@ -1,3 +1,4 @@
+
 <div class="flex">
   <div class="ml-8 mr-20 px-4 sm:pl-6 min-w-[1235px]">
     <div class="flex flex-col">
@@ -137,10 +138,10 @@
     
     <!-- Modal panel -->
     <div class="relative bg-white rounded-lg max-w-xl w-full mx-auto shadow-xl transform transition-all">
-      <!-- Modal header -->
+      <!-- Modal header - Now shows Commission ID -->
       <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-        <h3 class="text-xl font-semibold text-gray-900" id="modal-commission-address">
-          Commission Details
+        <h3 class="text-xl font-semibold text-gray-900" id="modal-title">
+          Commission #<span id="modal-commission-id-header"></span>
         </h3>
         <button type="button" onclick="closeArchiveModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
           <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -163,8 +164,8 @@
         <!-- Commission Info -->
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <p class="text-sm font-medium text-gray-500">Commission ID</p>
-            <p id="modal-commission-id" class="text-base font-semibold text-gray-900">#123</p>
+            <p class="text-sm font-medium text-gray-500">Delivery Address</p>
+            <p id="modal-commission-address" class="text-base font-semibold text-gray-900">Address</p>
           </div>
           <div>
             <p class="text-sm font-medium text-gray-500">Creation Date</p>
@@ -176,7 +177,7 @@
           </div>
           <div>
             <p class="text-sm font-medium text-gray-500">Final Price</p>
-            <p id="modal-price" class="text-base font-semibold text-gray-900">$100.00</p>
+            <p id="modal-price" class="text-base font-semibold text-gray-900">PHP 100.00</p>
           </div>
         </div>
         
@@ -211,13 +212,13 @@
   function showArchiveDetails(id, status, address, details, date, price, client) {
     currentCommissionId = id;
     
-    // Update modal content
-    document.getElementById('modal-commission-address').textContent = address || 'Commission Details';
-    document.getElementById('modal-commission-id').textContent = `#${id}`;
+    // Update modal content - now display ID in header and address in grid
+    document.getElementById('modal-commission-id-header').textContent = id;
+    document.getElementById('modal-commission-address').textContent = address || 'Not specified';
     document.getElementById('modal-status-text').textContent = status.charAt(0).toUpperCase() + status.slice(1);
     document.getElementById('modal-details').textContent = details || 'No details provided';
     document.getElementById('modal-date').textContent = date;
-    document.getElementById('modal-price').textContent = price.startsWith('PHP') ? price : `PHP${price}`;
+    document.getElementById('modal-price').textContent = price.startsWith('PHP') ? price : `PHP ${price}`;
     document.getElementById('modal-client').textContent = client;
     
     // Set status indicator and badge color
@@ -285,11 +286,6 @@
 
 <style>
   /* Modal animation */
-  .relative {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: scale(0.95);
-    opacity: 0;
-  }
   
   .scale-100 {
     transform: scale(1);
