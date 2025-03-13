@@ -50,6 +50,7 @@
             </div>
             
             <!-- Table -->
+            <div class="max-h-[70vh] overflow-y-auto">
             <table class="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr class="bg-gray-50">
@@ -128,6 +129,7 @@
                 @endforeach
               </tbody>
             </table>
+            </div>
             <!-- End Table -->
 
             <!-- Footer -->
@@ -281,14 +283,5 @@
       closeCommissionModal();
     }
   });
-  
-  // Make pagination buttons work if available
-  document.addEventListener('DOMContentLoaded', function() {
-    const prevButton = document.querySelector('button:contains("Prev")');
-    const nextButton = document.querySelector('button:contains("Next")');
-    
-    if (prevButton && nextButton) {
-      // Add pagination logic here if needed
-    }
-  });
+
 </script>
