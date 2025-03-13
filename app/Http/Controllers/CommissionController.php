@@ -93,7 +93,8 @@ class CommissionController extends Controller
     {
         $user = Auth::user();
         $commissions = Commission::where('user_id', $user->id)
-            ->whereIn('status', ['pending', 'active', 'cancelled', 'completed'])
+            ->whereIn('status', ['pending', 'active', 'processing', 'cancelled'])
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $faqs = Faq::all();
@@ -172,7 +173,10 @@ class CommissionController extends Controller
     public function getInboxContent()
     {
         $user = Auth::user();
-        $commissions = Commission::where('user_id', $user->id)->whereIn('status', ['pending','active', 'processing', 'cancelled'])->get();
+        $commissions = Commission::where('user_id', $user->id)
+            ->whereIn('status', ['pending', 'active', 'processing', 'cancelled'])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('components.inbox-content', compact('commissions'))->render();
     }
