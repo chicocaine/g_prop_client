@@ -93,7 +93,6 @@ class CommissionController extends Controller
     {
         $user = Auth::user();
         $commissions = Commission::where('user_id', $user->id)
-            ->whereIn('status', ['pending', 'active', 'processing', 'cancelled'])
             ->orderBy('created_at', 'desc')
             ->get();
 

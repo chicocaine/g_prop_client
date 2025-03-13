@@ -25,94 +25,96 @@
               </div>
             @else
               <!-- Table with data -->
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr class="bg-gray-50">
-                    <th scope="col" class="px-6 py-3 text-start">
-                      <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Status</span>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-start">
-                      <span class="text-xs font-medium uppercase tracking-wider text-gray-500">ID</span>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-start">
-                      <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Delivery Address</span>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-start">
-                      <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Details</span>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-start">
-                      <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Price</span>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-start">
-                      <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Date</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200" id="archive-tbody">
-                  @foreach ($commissions as $commission)
-                    <tr class="archive-item hover:bg-gray-50 transition-colors cursor-pointer" 
-                        onclick="showArchiveDetails({{ $commission->id }}, '{{ $commission->status }}', '{{ addslashes($commission->delivery_address) }}', '{{ addslashes($commission->details) }}', '{{ $commission->created_at->format('M d, Y') }}', '{{ $commission->set_price ?? 'Not set' }}', '{{ $commission->user ? $commission->user->first_name . ' ' . $commission->user->last_name : 'Unknown' }}')">
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full 
-                            @if($commission->status === 'completed')
-                              bg-blue-100
-                            @elseif($commission->status === 'cancelled')
-                              bg-red-100
-                            @else
-                              bg-gray-100
-                            @endif
-                          ">
-                            <img src="{{ asset($commission->status . '.svg') }}" alt="{{ ucfirst($commission->status) }} Logo" width="16" height="16">
-                          </div>
-                          <div class="ml-4">
-                            <span class="text-xs font-medium rounded-full px-2.5 py-1
+              <div class="max-h-[70vh] overflow-y-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Status</span>
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <span class="text-xs font-medium uppercase tracking-wider text-gray-500">ID</span>
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Delivery Address</span>
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Details</span>
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Price</span>
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <span class="text-xs font-medium uppercase tracking-wider text-gray-500">Date</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200" id="archive-tbody">
+                    @foreach ($commissions as $commission)
+                      <tr class="archive-item hover:bg-gray-50 transition-colors cursor-pointer" 
+                          onclick="showArchiveDetails({{ $commission->id }}, '{{ $commission->status }}', '{{ addslashes($commission->delivery_address) }}', '{{ addslashes($commission->details) }}', '{{ $commission->created_at->format('M d, Y') }}', '{{ $commission->set_price ?? 'Not set' }}', '{{ $commission->user ? $commission->user->first_name . ' ' . $commission->user->last_name : 'Unknown' }}')">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full 
                               @if($commission->status === 'completed')
-                                bg-blue-100 text-blue-800
+                                bg-blue-100
                               @elseif($commission->status === 'cancelled')
-                                bg-red-100 text-red-800
+                                bg-red-100
                               @else
-                                bg-gray-100 text-gray-800
+                                bg-gray-100
                               @endif
                             ">
-                              {{ ucfirst($commission->status) }}
-                            </span>
+                              <img src="{{ asset($commission->status . '.svg') }}" alt="{{ ucfirst($commission->status) }} Logo" width="16" height="16">
+                            </div>
+                            <div class="ml-4">
+                              <span class="text-xs font-medium rounded-full px-2.5 py-1
+                                @if($commission->status === 'completed')
+                                  bg-blue-100 text-blue-800
+                                @elseif($commission->status === 'cancelled')
+                                  bg-red-100 text-red-800
+                                @else
+                                  bg-gray-100 text-gray-800
+                                @endif
+                              ">
+                                {{ ucfirst($commission->status) }}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="text-sm font-medium text-gray-900">#{{ $commission->id }}</span>
-                      </td>
-                      <td class="px-6 py-4">
-                        <div class="text-sm text-gray-900 font-medium">{{ $commission->delivery_address }}</div>
-                      </td>
-                      <td class="px-6 py-4">
-                        <div class="text-sm text-gray-500 max-w-xs truncate">
-                          {{ Str::limit($commission->details, 40) }}
-                        </div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-medium text-gray-700">
-                          @if($commission->set_price)
-                            PHP {{ number_format($commission->set_price, 2) }}
-                          @else
-                            Not set
-                          @endif
-                        </div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm text-gray-500">{{ $commission->created_at->format('M d, Y') }}</div>
-                      </td>
-                    </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <span class="text-sm font-medium text-gray-900">#{{ $commission->id }}</span>
+                        </td>
+                        <td class="px-6 py-4">
+                          <div class="text-sm text-gray-900 font-medium">{{ $commission->delivery_address }}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                          <div class="text-sm text-gray-500 max-w-xs truncate">
+                            {{ Str::limit($commission->details, 40) }}
+                          </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <div class="text-sm font-medium text-gray-700">
+                            @if($commission->set_price)
+                              PHP {{ number_format($commission->set_price, 2) }}
+                            @else
+                              Not set
+                            @endif
+                          </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <div class="text-sm text-gray-500">{{ $commission->created_at->format('M d, Y') }}</div>
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
               
               <!-- Pagination -->
               <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
                 <div>
                   <p class="text-sm text-gray-600">
-                    Showing <span class="font-semibold text-gray-800">{{ $commissions->count() }}</span> archived commissions
+                    Showing <span class="font-semibold text-gray-800">{{ $commissions->count() }}</span> completed commissions
                   </p>
                 </div>
                 
