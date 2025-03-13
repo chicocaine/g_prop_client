@@ -31,7 +31,7 @@
                                     </svg>
                                     <a href="{{ asset('storage/' . $attachment->file_path) }}" target="_blank" class="text-blue-600 hover:underline text-sm">
                                         {{ $attachment->file_name }} 
-                                        <span class="text-xs text-gray-500">({{ $attachment->file_size }})</span>
+                                        <span class="text-xs text-white">({{ formatSizeUnits($attachment->file_size) }})</span>
                                     </a>
                                 </div>
                             @endforeach
@@ -71,7 +71,7 @@
                                         </svg>
                                         <a href="{{ asset('storage/' . $attachment->file_path) }}" target="_blank" class="text-white hover:underline text-sm">
                                             {{ $attachment->file_name }} 
-                                            <span class="text-xs text-blue-100">({{ $attachment->file_size }})</span>
+                                            <span class="text-xs text-white">({{ formatSizeUnits($attachment->file_size) }})</span>
                                         </a>
                                     </div>
                                 @endforeach

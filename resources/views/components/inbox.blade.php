@@ -162,6 +162,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showMessages(commissionId) {
+        fileHandlersSetup = false;
+    if (!fileHandlersSetup) {
+        setupFileInputHandlers();
+    }
+    
+
     // Add loading state
     const messagesContainer = document.getElementById('messages-container');
     messagesContainer.innerHTML = `
@@ -187,49 +193,14 @@ function showMessages(commissionId) {
             // Enable "Enter" to send messages
             const messageContent = document.getElementById('message-content');
             if (messageContent) {
-                messageContent.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        sendMessage();
-                    }
-                });
+                // Remove any existing event listener first
+                messageContent.removeEventListener('keydown', messageSendOnEnter);
+                // Add the event listener
+                messageContent.addEventListener('keydown', messageSendOnEnter);
             }
 
             // File input styling and preview
-            const fileInput = document.getElementById('attachment');
-            const fileButton = document.getElementById('attachment-button');
-            if (fileInput && fileButton) {
-                fileButton.addEventListener('click', () => {
-                    fileInput.click();
-                });
-                
-                fileInput.addEventListener('change', (e) => {
-                    displayAttachedFiles();
-                    
-                    // Enable send button if files are selected
-                    const sendButton = document.getElementById('send-button');
-                    if (sendButton && fileInput.files.length > 0) {
-                        sendButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                        sendButton.removeAttribute('disabled');
-                    }
-                });
-            }
-            
-            // Monitor message input for enabling/disabling send button
-            if (messageContent) {
-                messageContent.addEventListener('input', () => {
-                    const sendButton = document.getElementById('send-button');
-                    if (sendButton) {
-                        if (messageContent.value.trim() || (fileInput && fileInput.files.length > 0)) {
-                            sendButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                            sendButton.removeAttribute('disabled');
-                        } else {
-                            sendButton.classList.add('opacity-50', 'cursor-not-allowed');
-                            sendButton.setAttribute('disabled', 'disabled');
-                        }
-                    }
-                });
-            }
+            setupFileInputHandlers();
 
             // Set scroll position to the bottom after the next tick
             setTimeout(() => {
@@ -268,7 +239,107 @@ function showMessages(commissionId) {
         .catch(error => console.error("❌ Fetch error:", error));
 }
 
-// Add this: A mutation observer to watch for dynamically added commission rows
+// Event handler function for Enter key press
+function messageSendOnEnter(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+    }
+}
+
+let fileHandlersSetup = false;
+
+function setupFileInputHandlers() {
+    const fileInput = document.getElementById('attachment');
+    const fileButton = document.getElementById('attachment-button');
+    
+    if (!fileInput || !fileButton) {
+        console.warn("⚠️ File input elements not found");
+        return;
+    }
+
+    // First, remove any inline onclick attributes which could be causing duplicate handlers
+    fileButton.removeAttribute('onclick');
+    
+    // Remove all existing click listeners from the button by creating a completely new element
+    const newFileButton = fileButton.cloneNode(false); // false = don't clone children
+    
+    // Copy any needed attributes except event handlers
+    newFileButton.className = fileButton.className;
+    newFileButton.id = fileButton.id;
+    newFileButton.innerHTML = fileButton.innerHTML;
+    
+    // Replace the old button with the new one
+    if (fileButton.parentNode) {
+        fileButton.parentNode.replaceChild(newFileButton, fileButton);
+    }
+    
+    // Similarly for the file input
+    const newFileInput = document.createElement('input');
+    newFileInput.type = 'file';
+    newFileInput.id = 'attachment';
+    newFileInput.name = 'attachment';
+    newFileInput.multiple = true;
+    newFileInput.accept = fileInput.accept; // Copy the accepted file types
+    newFileInput.className = fileInput.className;
+    newFileInput.style.cssText = 'display: none;'; // Hide the file input
+    
+    if (fileInput.parentNode) {
+        fileInput.parentNode.replaceChild(newFileInput, fileInput);
+    }
+    
+    // Now add our click handler to the new button
+    newFileButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent any default behavior
+        e.stopPropagation(); // Stop event from bubbling up
+        newFileInput.click(); // This triggers the file dialog
+        console.log("📁 File button clicked - opening file explorer");
+    });
+    
+    // Add change handler to the new input
+    newFileInput.addEventListener('change', function() {
+        displayAttachedFiles();
+        console.log("📄 Files selected:", newFileInput.files.length);
+        
+        // Enable send button if files are selected
+        const sendButton = document.getElementById('send-button');
+        if (sendButton && newFileInput.files.length > 0) {
+            sendButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            sendButton.removeAttribute('disabled');
+        }
+    });
+    
+    // Handle the message input
+    const messageContent = document.getElementById('message-content');
+    if (messageContent) {
+        const newMessageContent = messageContent.cloneNode(false);
+        newMessageContent.value = messageContent.value; // Copy the current value
+        
+        if (messageContent.parentNode) {
+            messageContent.parentNode.replaceChild(newMessageContent, messageContent);
+        }
+        
+        // Add keydown for Enter key
+        newMessageContent.addEventListener('keydown', messageSendOnEnter);
+        
+        // Add input handler for enabling/disabling send button
+        newMessageContent.addEventListener('input', function() {
+            const sendButton = document.getElementById('send-button');
+            if (sendButton) {
+                if (newMessageContent.value.trim() || (newFileInput && newFileInput.files.length > 0)) {
+                    sendButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                    sendButton.removeAttribute('disabled');
+                } else {
+                    sendButton.classList.add('opacity-50', 'cursor-not-allowed');
+                    sendButton.setAttribute('disabled', 'disabled');
+                }
+            }
+        });
+    }
+    
+    console.log("✅ File input handlers set up successfully");
+    fileHandlersSetup = true;
+}
 function setupCommissionRowsObserver() {
     const targetNode = document.getElementById('inbox-container');
     if (!targetNode) {
@@ -334,7 +405,7 @@ function pollMessages() {
         .catch(error => console.error('Error fetching latest messages:', error));
 }
 
-setInterval(pollMessages, 5000);
+setInterval(pollMessages, 2000);
 
 function sendMessage() {
     console.log("🔵 sendMessage() function called.");

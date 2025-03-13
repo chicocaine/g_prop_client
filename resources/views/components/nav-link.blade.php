@@ -19,7 +19,7 @@
       
       @auth
         <div x-data="{ open: false }" class="relative">
-          <button @click="open = !open" class="text-black hover:text-gray-600  focus:outline-none">
+          <button @click="open = !open" class="text-[#F66C73] hover:text-gray-600  focus:outline-none">
             {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
           </button>
           <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-20">
