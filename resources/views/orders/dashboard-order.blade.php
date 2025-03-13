@@ -20,7 +20,7 @@
                 <a href="{{ route('commissions.archive') }}">
                     <div class="flex items-center gap-x-2">
                         <img src="archive.svg" alt="Archive Logo" width="16px" height="16px">
-                        Archive
+                        Completed
                     </div>
                 </a>
             </div>
