@@ -1,4 +1,3 @@
-<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CSE-7/Final-Project/g_prop_client/resources/views/components/inbox.blade.php -->
 <div class="flex">
   <!-- Left sidebar with conversations -->
   <div class="ml-8 mr-4 w-[380px]">
@@ -8,7 +7,7 @@
       </div>
       
       <!-- Conversations list -->
-      <div class="h-[calc(100vh-140px)] overflow-y-auto pr-1 conversation-list" id="inbox-container">
+      <div class="h-[calc(100vh-140px)] overflow-y-auto pr-1 conversation-list py-4" id="inbox-container">
         @include('components.inbox-content', ['commissions' => $commissions])
       </div>
     </div>
@@ -35,30 +34,24 @@ let lastMessageId = 0;
 let pendingCommissionSelection = null;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Check for commission parameter in URL
     const urlParams = new URLSearchParams(window.location.search);
     const commissionId = urlParams.get('commission');
     
     if (commissionId) {
-        // Store the ID to select after rows are loaded
         pendingCommissionSelection = commissionId;
         
-        // Try to find it now (it might already be loaded)
         trySelectCommission(commissionId);
     }
 });
 
-// Function to try selecting a commission
 function trySelectCommission(commissionId) {
     console.log("🔍 Trying to find and select commission:", commissionId);
     
-    // Try different possible selectors to find the commission element
     let commissionElement = document.querySelector(`[data-commission-id="${commissionId}"]`);
     
     if (!commissionElement) {
         console.log("⚠️ Commission element not found with primary selector, trying alternatives...");
         
-        // Try other possible selectors
         const possibleSelectors = [
             `tr[data-commission-id="${commissionId}"]`,
             `.conversation-item[data-commission-id="${commissionId}"]`,
@@ -79,37 +72,29 @@ function trySelectCommission(commissionId) {
     if (commissionElement) {
         console.log("✅ Commission element found, triggering click:", commissionElement);
         
-        // Some elements might have their own click handlers - trigger those directly
         if (typeof commissionElement.onclick === 'function') {
             commissionElement.onclick();
         } else {
-            // Find if there's an onclick attribute as a string
             const onclickAttr = commissionElement.getAttribute('onclick');
             if (onclickAttr && onclickAttr.includes('showMessages')) {
-                // Extract and execute the showMessages part
                 const match = onclickAttr.match(/showMessages\(([^)]+)\)/);
                 if (match && match[1]) {
                     console.log("🔄 Executing showMessages from onclick attribute");
                     showMessages(commissionId);
                 } else {
-                    // Fallback to click event
                     commissionElement.click();
                 }
             } else {
-                // Fallback to click event
                 commissionElement.click();
             }
         }
         
-        // Add visual indicator to highlight the selected commission
         const allItems = document.querySelectorAll('[data-commission-id]');
         allItems.forEach(item => item.classList.remove('bg-blue-50'));
         commissionElement.classList.add('bg-blue-50');
         
-        // Scroll the commission into view if needed
         commissionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
-        // Clear the pending selection since we've handled it
         pendingCommissionSelection = null;
         
         return true;
@@ -119,7 +104,6 @@ function trySelectCommission(commissionId) {
     return false;
 }
 
-// Add this function to attempt finding the commission repeatedly in case it loads later
 function findCommissionWithRetry(commissionId, maxAttempts = 10) {
     let attempts = 0;
     
@@ -133,29 +117,23 @@ function findCommissionWithRetry(commissionId, maxAttempts = 10) {
         console.log(`🔄 Attempt ${attempts}/${maxAttempts} to find commission ${commissionId}...`);
         
         if (!trySelectCommission(commissionId)) {
-            // Wait a bit and try again
             setTimeout(attemptFind, 500);
         }
     }
     
-    // Start the first attempt
     attemptFind();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Check for commission parameter in URL
     const urlParams = new URLSearchParams(window.location.search);
     const commissionId = urlParams.get('commission');
     
     if (commissionId) {
         console.log("🔵 Commission ID found in URL:", commissionId);
-        // Store the ID to select after rows are loaded
         pendingCommissionSelection = commissionId;
         
-        // Try to find it now (it might already be loaded)
         if (!trySelectCommission(commissionId)) {
             console.log("⏳ Commission not found immediately, will retry with delay...");
-            // If not found immediately, try with a delay to allow for any AJAX loading
             findCommissionWithRetry(commissionId);
         }
     }
@@ -168,7 +146,6 @@ function showMessages(commissionId) {
     }
     
 
-    // Add loading state
     const messagesContainer = document.getElementById('messages-container');
     messagesContainer.innerHTML = `
         <div class="flex flex-col items-center justify-center align-center w-full h-[763px] border border-gray-200 shadow-sm rounded-[12px] bg-white">
@@ -184,25 +161,19 @@ function showMessages(commissionId) {
             messagesContainer.setAttribute('data-commission-id', commissionId);
             messagesContainer.innerHTML = data.html;
 
-            // Update lastMessageId
             const lastMessage = data.messages && data.messages.length > 0 ? data.messages[data.messages.length - 1] : null;
             if (lastMessage) {
                 lastMessageId = lastMessage.id;
             }
 
-            // Enable "Enter" to send messages
             const messageContent = document.getElementById('message-content');
             if (messageContent) {
-                // Remove any existing event listener first
                 messageContent.removeEventListener('keydown', messageSendOnEnter);
-                // Add the event listener
                 messageContent.addEventListener('keydown', messageSendOnEnter);
             }
 
-            // File input styling and preview
             setupFileInputHandlers();
 
-            // Set scroll position to the bottom after the next tick
             setTimeout(() => {
                 const messagesDiv = messagesContainer.querySelector('div.overflow-y-auto');
                 if (messagesDiv) {
@@ -210,7 +181,6 @@ function showMessages(commissionId) {
                 }
             }, 0);
 
-            // Mark messages as read
             fetch(`/commissions/${commissionId}/mark-read`, {
                 method: 'POST',
                 headers: {
@@ -220,7 +190,6 @@ function showMessages(commissionId) {
             .then(response => {
                 if (response.ok) {
                     console.log("✅ Messages marked as read successfully.");
-                    // Update the UI to reflect the read status
                     const unreadMessages = messagesContainer.querySelectorAll('.unread');
                     unreadMessages.forEach(message => {
                         message.classList.remove('unread');
@@ -239,7 +208,6 @@ function showMessages(commissionId) {
         .catch(error => console.error("❌ Fetch error:", error));
 }
 
-// Event handler function for Enter key press
 function messageSendOnEnter(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -258,37 +226,33 @@ function setupFileInputHandlers() {
         return;
     }
 
-    // First, remove any inline onclick attributes which could be causing duplicate handlers
+    // remove any inline onclick attributes which could be causing duplicate handlers
     fileButton.removeAttribute('onclick');
     
     // Remove all existing click listeners from the button by creating a completely new element
-    const newFileButton = fileButton.cloneNode(false); // false = don't clone children
+    const newFileButton = fileButton.cloneNode(false); 
     
-    // Copy any needed attributes except event handlers
     newFileButton.className = fileButton.className;
     newFileButton.id = fileButton.id;
     newFileButton.innerHTML = fileButton.innerHTML;
     
-    // Replace the old button with the new one
     if (fileButton.parentNode) {
         fileButton.parentNode.replaceChild(newFileButton, fileButton);
     }
     
-    // Similarly for the file input
     const newFileInput = document.createElement('input');
     newFileInput.type = 'file';
     newFileInput.id = 'attachment';
     newFileInput.name = 'attachment';
     newFileInput.multiple = true;
-    newFileInput.accept = fileInput.accept; // Copy the accepted file types
+    newFileInput.accept = fileInput.accept; 
     newFileInput.className = fileInput.className;
-    newFileInput.style.cssText = 'display: none;'; // Hide the file input
+    newFileInput.style.cssText = 'display: none;'; 
     
     if (fileInput.parentNode) {
         fileInput.parentNode.replaceChild(newFileInput, fileInput);
     }
     
-    // Now add our click handler to the new button
     newFileButton.addEventListener('click', function(e) {
         e.preventDefault(); // Prevent any default behavior
         e.stopPropagation(); // Stop event from bubbling up
@@ -296,12 +260,10 @@ function setupFileInputHandlers() {
         console.log("📁 File button clicked - opening file explorer");
     });
     
-    // Add change handler to the new input
     newFileInput.addEventListener('change', function() {
         displayAttachedFiles();
         console.log("📄 Files selected:", newFileInput.files.length);
         
-        // Enable send button if files are selected
         const sendButton = document.getElementById('send-button');
         if (sendButton && newFileInput.files.length > 0) {
             sendButton.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -309,7 +271,6 @@ function setupFileInputHandlers() {
         }
     });
     
-    // Handle the message input
     const messageContent = document.getElementById('message-content');
     if (messageContent) {
         const newMessageContent = messageContent.cloneNode(false);
@@ -319,10 +280,8 @@ function setupFileInputHandlers() {
             messageContent.parentNode.replaceChild(newMessageContent, messageContent);
         }
         
-        // Add keydown for Enter key
         newMessageContent.addEventListener('keydown', messageSendOnEnter);
         
-        // Add input handler for enabling/disabling send button
         newMessageContent.addEventListener('input', function() {
             const sendButton = document.getElementById('send-button');
             if (sendButton) {
@@ -353,9 +312,7 @@ function setupCommissionRowsObserver() {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList' && mutation.addedNodes.length > 0 && pendingCommissionSelection) {
                 console.log("🔄 DOM mutation detected, checking for pending commission selection");
-                // New elements were added, try selecting our commission again
                 if (trySelectCommission(pendingCommissionSelection)) {
-                    // Success! No need to keep watching
                     observer.disconnect();
                 }
             }
@@ -367,7 +324,6 @@ function setupCommissionRowsObserver() {
     console.log("✅ Mutation observer set up for inbox container");
 }
 
-// Start watching for dynamically added rows as soon as possible
 document.addEventListener('DOMContentLoaded', setupCommissionRowsObserver);
 
 function pollMessages() {
@@ -487,19 +443,16 @@ function sendMessage() {
                 return;
             }
 
-            // Let the next polling cycle handle displaying the message
-            lastMessageId = data.message.id - 1; // Force the message to be picked up
+            lastMessageId = data.message.id - 1; 
 
             messageInput.value = '';
             if (attachmentInput) attachmentInput.value = '';
 
-            // Clear the attached files display
             const attachedFilesContainer = document.getElementById('attached-files');
             if (attachedFilesContainer) {
                 attachedFilesContainer.innerHTML = '';
             }
             
-            // Reset send button
             if (sendButton) {
                 sendButton.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -511,7 +464,6 @@ function sendMessage() {
             }
         } else {
             console.error("❌ Error: Message not sent successfully:", data);
-            // Reset send button on error
             if (sendButton) {
                 sendButton.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -525,7 +477,6 @@ function sendMessage() {
     })
     .catch(error => {
         console.error("❌ Fetch error:", error);
-        // Reset send button on error
         if (sendButton) {
             sendButton.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -547,7 +498,7 @@ function displayAttachedFiles() {
         return;
     }
 
-    attachedFilesContainer.innerHTML = ''; // Clear previous attachments
+    attachedFilesContainer.innerHTML = ''; 
 
     if (attachmentInput.files.length === 0) {
         attachedFilesContainer.classList.add('hidden');
@@ -560,11 +511,9 @@ function displayAttachedFiles() {
         const file = attachmentInput.files[i];
         console.log(`📎 File selected: ${file.name}`);
         
-        // Create file preview element
         const fileElement = document.createElement('div');
         fileElement.className = 'flex items-center gap-2 bg-gray-100 rounded-md p-2 text-sm';
         
-        // Determine icon based on file type
         let iconSvg = '';
         const fileExt = file.name.split('.').pop().toLowerCase();
         
@@ -609,7 +558,6 @@ function removeFile(index) {
         return;
     }
     
-    // Files can't be removed directly from a FileList, so we need to create a new one
     const dt = new DataTransfer();
     
     for (let i = 0; i < attachmentInput.files.length; i++) {
@@ -621,7 +569,6 @@ function removeFile(index) {
     attachmentInput.files = dt.files;
     displayAttachedFiles();
     
-    // Update send button state
     const messageContent = document.getElementById('message-content');
     const sendButton = document.getElementById('send-button');
     

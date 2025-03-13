@@ -1,5 +1,4 @@
-<!-- filepath: /home/matchan/Documents/2nd-Year-BSCS/CSE-7/Final-Project/g_prop_client/resources/views/components/inbox-content.blade.php -->
-<div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden" id="inbox-content">
+<div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden " id="inbox-content">
   @if ($commissions->isEmpty())
     <div class="flex flex-col items-center justify-center h-[500px] p-4">
       <div class="rounded-full bg-gray-100 p-4 mb-4">
